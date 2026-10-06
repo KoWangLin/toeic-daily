@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TOEIC 30 Daily - 30-Minute Business Mastery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            dark: {
+              bg: '#090d16',
+              surface: '#111726',
+              card: '#161f33',
+              border: '#1f2d47',
+              muted: '#94a3b8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    .light .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+    }
+    .highlight-clue {
+      background-color: rgba(234, 179, 8, 0.25);
+      color: inherit;
+      padding: 0.15rem 0.35rem;
+      border-radius: 0.25rem;
+      border-bottom: 2px solid #eab308;
+      transition: all 0.3s ease;
+    }
+    .clue-active {
+      background-color: rgba(250, 204, 21, 0.45) !important;
+      box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.4);
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+    .pulse-subtle {
+      animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    /* Mobile safe-area padding for bottom bar */
+    .pb-safe {
+      padding-bottom: env(safe-area-inset-bottom, 1rem);
+    }
+  </style>
+</head>
+<body class="bg-dark-bg text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 pb-20 md:pb-6">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-dark-surface/95 dark:bg-dark-surface/95 light:bg-white/95 backdrop-blur-md border-b border-dark-border light:border-slate-200 shadow-sm transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-3.5 sm:px-6 py-2.5 sm:py-3">
+      <div class="flex items-center justify-between gap-2">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 shrink-0">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white light:text-slate-900 leading-tight">
+                TOEIC <span class="text-indigo-400">30</span>
+              </h1>
+              <span class="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 uppercase tracking-wider" data-i18n="badgeSprint">Daily</span>
+            </div>
+            <p class="text-[10px] sm:text-xs text-slate-400 light:text-slate-500 hidden sm:block" data-i18n="subTitle">30-Minute High-Impact Mastery</p>
+          </div>
+        </div>
+
+        <!-- Controls: Language switch, Theme, Streak, Timer, Punch-in Modal -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          
+          <!-- Punch-in Heatmap & History Trigger -->
+          <button onclick="openStatsModal()" class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold transition shadow-sm" title="學習打卡紀錄 (Study Logs & Heatmap)">
+            <span>📅</span>
+            <span id="header-streak-badge" class="font-extrabold text-[11px] sm:text-xs">0 天打卡</span>
+          </button>
+
+          <!-- Bilingual / English Immersion Toggle -->
+          <div class="flex items-center bg-dark-card light:bg-slate-100 p-0.5 sm:p-1 rounded-xl text-xs font-semibold border border-dark-border light:border-slate-200">
+            <button onclick="setLanguage('en')" id="lang-btn-en" class="px-2 py-1 rounded-lg text-slate-400 light:text-slate-600 transition-all font-medium text-[11px] sm:text-xs">EN</button>
+            <button onclick="setLanguage('zh')" id="lang-btn-zh" class="px-2 py-1 rounded-lg bg-indigo-600 text-white shadow-sm transition-all font-bold text-[11px] sm:text-xs">中文</button>
+          </div>
+
+          <!-- Dark / Light Theme Toggle Button -->
+          <button onclick="toggleTheme()" id="theme-toggle-btn" class="p-2 min-h-[36px] min-w-[36px] rounded-xl bg-dark-card light:bg-slate-100 border border-dark-border light:border-slate-200 text-slate-300 light:text-slate-700 hover:text-white transition flex items-center justify-center" title="切換深色/淺色主題">
+            <svg id="theme-icon-moon" class="w-4 h-4 text-amber-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-icon-sun" class="w-4 h-4 text-amber-500 hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+
+          <!-- 30-Min Countdown Timer -->
+          <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 text-white px-2.5 py-1.5 rounded-xl shadow-sm">
+            <svg class="w-3.5 h-3.5 text-emerald-400 pulse-subtle shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="session-timer" class="font-mono text-xs sm:text-sm font-bold tracking-wider text-emerald-400">30:00</span>
+            <button id="timer-toggle-btn" onclick="toggleTimer()" title="Pause/Resume" class="text-slate-400 hover:text-white p-0.5">
+              <svg id="timer-icon-pause" class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Standalone / Setup Modal Button -->
+          <button onclick="openDeployModal()" class="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-bold transition">
+            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span data-i18n="btnRunAlone">單獨運行</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop Step Progress Tabs (Hidden on mobile, replaced by bottom dock) -->
+      <div class="hidden md:flex items-center justify-between overflow-x-auto gap-2 pt-2.5 mt-2 border-t border-dark-border light:border-slate-200 text-xs sm:text-sm select-none">
+        <button onclick="goToModule(0)" id="tab-module-0" class="flex items-center gap-2 px-3 py-1.5 rounded-lg font-semibold transition border border-indigo-500 bg-indigo-600/20 text-indigo-300 whitespace-nowrap">
+          <span class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">1</span>
+          <span data-i18n="tabVocab">核心單字庫 (12字)</span>
+          <span class="text-[10px] text-indigo-400/80 hidden sm:inline">(7 min)</span>
+        </button>
+
+        <div class="w-6 h-0.5 bg-dark-border light:bg-slate-200"></div>
+
+        <button onclick="goToModule(1)" id="tab-module-1" class="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition text-slate-400 light:text-slate-600 hover:bg-dark-card light:hover:bg-slate-100 whitespace-nowrap">
+          <span class="w-5 h-5 rounded-full bg-dark-card light:bg-slate-200 text-slate-400 light:text-slate-600 flex items-center justify-center text-xs font-bold">2</span>
+          <span data-i18n="tabReading">Part 7 商業閱讀</span>
+          <span class="text-[10px] text-slate-500 hidden sm:inline">(13 min)</span>
+        </button>
+
+        <div class="w-6 h-0.5 bg-dark-border light:bg-slate-200"></div>
+
+        <button onclick="goToModule(2)" id="tab-module-2" class="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition text-slate-400 light:text-slate-600 hover:bg-dark-card light:hover:bg-slate-100 whitespace-nowrap">
+          <span class="w-5 h-5 rounded-full bg-dark-card light:bg-slate-200 text-slate-400 light:text-slate-600 flex items-center justify-center text-xs font-bold">3</span>
+          <span data-i18n="tabListening">Part 3/4 聽力音檔</span>
+          <span class="text-[10px] text-slate-500 hidden sm:inline">(10 min)</span>
+        </button>
+
+        <div class="w-6 h-0.5 bg-dark-border light:bg-slate-200"></div>
+
+        <button onclick="goToModule(3)" id="tab-module-3" class="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition text-slate-400 light:text-slate-600 hover:bg-dark-card light:hover:bg-slate-100 whitespace-nowrap">
+          <span class="w-5 h-5 rounded-full bg-dark-card light:bg-slate-200 text-slate-400 light:text-slate-600 flex items-center justify-center text-xs font-bold">4</span>
+          <span data-i18n="tabScorecard">學習打卡 & 成績卡</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Bottom Sticky Navigation Dock (iOS/Android thumb friendly) -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-dark-surface/95 light:bg-white/95 backdrop-blur-lg border-t border-dark-border light:border-slate-200 pb-safe shadow-lg">
+    <div class="grid grid-cols-4 px-2 py-1.5 text-center">
+      <button onclick="goToModule(0)" id="mobile-dock-0" class="flex flex-col items-center justify-center py-1 text-indigo-400 font-bold transition">
+        <span class="text-base leading-none">📖</span>
+        <span class="text-[10px] mt-1" data-i18n="tabVocabShort">單字庫</span>
+      </button>
+      <button onclick="goToModule(1)" id="mobile-dock-1" class="flex flex-col items-center justify-center py-1 text-slate-400 font-medium transition">
+        <span class="text-base leading-none">📄</span>
+        <span class="text-[10px] mt-1" data-i18n="tabReadingShort">閱讀理解</span>
+      </button>
+      <button onclick="goToModule(2)" id="mobile-dock-2" class="flex flex-col items-center justify-center py-1 text-slate-400 font-medium transition">
+        <span class="text-base leading-none">🎧</span>
+        <span class="text-[10px] mt-1" data-i18n="tabListeningShort">聽力練習</span>
+      </button>
+      <button onclick="goToModule(3)" id="mobile-dock-3" class="flex flex-col items-center justify-center py-1 text-slate-400 font-medium transition">
+        <span class="text-base leading-none">🏆</span>
+        <span class="text-[10px] mt-1" data-i18n="tabScoreShort">打卡紀錄</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-3.5 sm:px-6 py-4 sm:py-6">
+
+    <!-- Day & Tier Selector Banner (Responsive wrap) -->
+    <div class="mb-4 sm:mb-6 bg-dark-card light:bg-white p-3.5 sm:p-4 rounded-2xl border border-dark-border light:border-slate-200 shadow-sm transition-colors space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <!-- Target Tier Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1" data-i18n="tierLabel">目標級別:</span>
+          <button onclick="setTargetTier('tier-500')" id="target-500" class="px-3 py-1.5 min-h-[38px] rounded-xl bg-indigo-600 text-white shadow-sm font-bold text-xs shrink-0 transition">500~650 (基礎起步)</button>
+          <button onclick="setTargetTier('tier-700')" id="target-700" class="px-3 py-1.5 min-h-[38px] rounded-xl text-slate-400 light:text-slate-600 hover:text-white font-medium text-xs shrink-0 transition">700~800 (進階經理)</button>
+          <button onclick="setTargetTier('tier-850')" id="target-850" class="px-3 py-1.5 min-h-[38px] rounded-xl text-slate-400 light:text-slate-600 hover:text-white font-medium text-xs shrink-0 transition">850~990 (金色證書)</button>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="flex items-center gap-2 justify-between sm:justify-end">
+          <div class="flex items-center gap-1.5">
+            <button onclick="switchLessonDay(0)" class="day-btn px-2.5 py-1.5 min-h-[36px] rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm transition" id="day-btn-0">Day 1</button>
+            <button onclick="switchLessonDay(1)" class="day-btn px-2.5 py-1.5 min-h-[36px] rounded-lg text-xs font-semibold bg-dark-surface light:bg-slate-100 text-slate-300 light:text-slate-600 hover:bg-slate-800 border border-dark-border light:border-slate-200 transition" id="day-btn-1">Day 2</button>
+          </div>
+          
+          <button onclick="triggerSimulateGenerate()" class="px-3 py-1.5 min-h-[36px] rounded-lg text-xs font-semibold border border-indigo-500/40 text-indigo-300 hover:bg-indigo-600/20 transition flex items-center gap-1.5 shrink-0">
+            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span data-i18n="btnAiGenerate">AI 生成</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Current Lesson Title -->
+      <div class="pt-2 border-t border-dark-border light:border-slate-100 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span id="tier-badge-pill" class="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">500~650 Foundation</span>
+          <span class="text-xs text-slate-400 font-semibold" id="current-date-label">Day 1</span>
+        </div>
+        <h2 class="text-xs sm:text-sm font-bold text-white light:text-slate-900 truncate" id="topic-header-title">Office Operations & Daily Administrative Tasks</h2>
+      </div>
+    </div>
+
+    <!-- MODULE 1: VOCABULARY & COLLOCATIONS (12 WORDS) -->
+    <section id="module-container-0" class="module-view block space-y-4 sm:space-y-6">
+      
+      <!-- Module Banner -->
+      <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 light:from-indigo-600 light:to-violet-600 rounded-2xl sm:rounded-3xl p-5 sm:p-7 text-white shadow-lg border border-indigo-700/50">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-[11px] font-semibold mb-2 text-indigo-200">
+            <span data-i18n="vocabStep">⏱️ 模組 1/3 • 預估 7 分鐘 • 12 個核心單字</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight" data-i18n="vocabHeroTitle">商務必考高頻字彙庫 & 搭配詞</h2>
+          <p class="mt-1 text-indigo-200 text-xs sm:text-sm leading-relaxed" data-i18n="vocabHeroDesc">
+            點擊任一單字即可聆聽真人語音，學習商務固定搭配詞（Collocations）與實戰例句。
+          </p>
+        </div>
+      </div>
+
+      <!-- Word Display & Flashcard System -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+        
+        <!-- Word Card Horizontal Scroller (Optimized for Mobile) -->
+        <div class="lg:col-span-4 bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-3.5 sm:p-4 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between pb-2.5 border-b border-dark-border light:border-slate-100 mb-2">
+            <span class="text-xs font-bold tracking-wider uppercase text-slate-400" data-i18n="vocabListHeader">今日 12 個單字清單</span>
+            <span class="text-xs font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20" id="vocab-progress-label">Word 1 of 12</span>
+          </div>
+
+          <!-- Mobile: Horizontal scrolling chips; Desktop: Vertical list -->
+          <div class="flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-y-auto lg:max-h-[480px] custom-scrollbar pb-2 lg:pb-0" id="vocab-nav-list">
+            <!-- Dynamically populated 12 words -->
+          </div>
+        </div>
+
+        <!-- Active Word Interactive Card -->
+        <div class="lg:col-span-8 bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-7 shadow-sm flex flex-col justify-between min-h-[420px]">
+          <div id="vocab-card-body">
+            <!-- Dynamic word content inserted here -->
+          </div>
+
+          <!-- Bottom Card Controls with Big Touch Targets (44px min-height) -->
+          <div class="mt-6 pt-4 border-t border-dark-border light:border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button onclick="prevVocabWord()" class="px-4 py-2.5 min-h-[44px] rounded-xl border border-dark-border light:border-slate-200 text-slate-300 light:text-slate-600 hover:bg-slate-800 light:hover:bg-slate-50 text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                <span data-i18n="btnPrev">上一個</span>
+              </button>
+              <button onclick="nextVocabWord()" class="px-4 py-2.5 min-h-[44px] rounded-xl border border-dark-border light:border-slate-200 text-slate-300 light:text-slate-600 hover:bg-slate-800 light:hover:bg-slate-50 text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+                <span data-i18n="btnNext">下一個</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <button onclick="goToModule(1)" class="w-full sm:w-auto px-6 py-2.5 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 active:scale-95">
+              <span data-i18n="btnToReading">前往 Part 7 商業閱讀</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: READING COMPREHENSION (PART 7) -->
+    <section id="module-container-1" class="module-view hidden space-y-4 sm:space-y-6">
+      
+      <!-- Module Banner -->
+      <div class="bg-gradient-to-r from-teal-900 via-emerald-900 to-cyan-900 light:from-emerald-600 light:to-teal-600 rounded-2xl sm:rounded-3xl p-5 sm:p-7 text-white shadow-lg border border-teal-700/50">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-[11px] font-semibold mb-2 text-teal-200">
+            <span data-i18n="readingStep">⏱️ 模組 2/3 • 預估 13 分鐘</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight" data-i18n="readingHeroTitle">Part 7 商業閱讀與文本線索定位</h2>
+          <p class="mt-1 text-teal-200 text-xs sm:text-sm leading-relaxed" data-i18n="readingHeroDesc">
+            分析職場真實信件與通知。點擊「定位答案線索」可自動在原文中突顯對應的證據句。
+          </p>
+        </div>
+      </div>
+
+      <!-- Mobile Tab Switcher for Passage vs Questions -->
+      <div class="lg:hidden flex items-center bg-dark-card light:bg-slate-200 p-1 rounded-xl border border-dark-border light:border-slate-300">
+        <button onclick="toggleMobileReadingTab('passage')" id="m-tab-passage" class="flex-1 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition">
+          📄 閱讀文章 (Passage)
+        </button>
+        <button onclick="toggleMobileReadingTab('questions')" id="m-tab-questions" class="flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 light:text-slate-700 transition">
+          🎯 測驗題目 (Questions)
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+        <!-- Reading Document Column -->
+        <div id="col-reading-doc" class="lg:col-span-6 bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-6 shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-dark-border light:border-slate-100 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="text-xs font-bold tracking-wider uppercase text-slate-400" id="reading-doc-type">Corporate Email</span>
+            </div>
+            <button onclick="toggleClueHighlights()" id="btn-toggle-clues" class="text-xs px-3 py-1.5 min-h-[36px] rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 light:text-amber-800 font-semibold hover:bg-amber-500/20 transition flex items-center gap-1 active:scale-95">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span data-i18n="btnClues">定位答案線索</span>
+            </button>
+          </div>
+
+          <!-- Document Content Body -->
+          <div id="reading-doc-content" class="text-slate-300 light:text-slate-700 text-xs sm:text-sm leading-relaxed space-y-3.5 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Questions & Analysis Column -->
+        <div id="col-reading-questions" class="lg:col-span-6 space-y-4">
+          <div id="reading-questions-container" class="space-y-4">
+            <!-- Questions rendered here -->
+          </div>
+
+          <!-- Navigation buttons -->
+          <div class="bg-dark-card light:bg-white p-3.5 sm:p-4 rounded-2xl border border-dark-border light:border-slate-200 flex items-center justify-between gap-2">
+            <button onclick="goToModule(0)" class="px-3.5 py-2.5 min-h-[44px] rounded-xl text-slate-300 light:text-slate-600 hover:bg-slate-800 light:hover:bg-slate-100 text-xs font-bold transition" data-i18n="btnBackVocab">
+              ← 回到單字庫
+            </button>
+            <button onclick="goToModule(2)" class="px-5 py-2.5 min-h-[44px] rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-teal-600/30 transition flex items-center gap-1.5 active:scale-95">
+              <span data-i18n="btnToListening">前往聽力訓練</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: LISTENING TRAINING (PART 3/4) -->
+    <section id="module-container-2" class="module-view hidden space-y-4 sm:space-y-6">
+      
+      <!-- Module Banner -->
+      <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-sky-900 light:from-blue-600 light:to-sky-600 rounded-2xl sm:rounded-3xl p-5 sm:p-7 text-white shadow-lg border border-blue-700/50">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-[11px] font-semibold mb-2 text-sky-200">
+            <span data-i18n="listeningStep">⏱️ 模組 3/3 • 預估 10 分鐘</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight" data-i18n="listeningHeroTitle">聽力仿真廣播與核心字聽打訓練</h2>
+          <p class="mt-1 text-sky-200 text-xs sm:text-sm leading-relaxed" data-i18n="listeningHeroDesc">
+            透過語音合成引擎播放美音/英音廣播，支援 0.85x~1.2x 語速調節，並完成核心關鍵字聽打與理解測驗。
+          </p>
+        </div>
+      </div>
+
+      <!-- Audio Player Panel (Touch friendly buttons) -->
+      <div class="bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-dark-border light:border-slate-100">
+          <div>
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider" id="listening-topic-tag">TOEIC Part 4 • Public Address</span>
+            <h3 class="text-base sm:text-lg font-bold text-white light:text-slate-800" id="listening-title">Notice to All Regional Staff</h3>
+          </div>
+
+          <!-- Controls for Audio -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <!-- Accent Picker -->
+            <div class="flex items-center bg-dark-surface light:bg-slate-100 p-1 rounded-xl text-xs border border-dark-border light:border-slate-200">
+              <button onclick="setListeningAccent('US')" id="accent-us" class="px-2.5 py-1.5 min-h-[36px] rounded-lg bg-indigo-600 text-white shadow-sm font-bold">美音 US</button>
+              <button onclick="setListeningAccent('UK')" id="accent-uk" class="px-2.5 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-bold hover:text-white">英音 UK</button>
+            </div>
+
+            <!-- Speed Picker -->
+            <div class="flex items-center bg-dark-surface light:bg-slate-100 p-1 rounded-xl text-xs border border-dark-border light:border-slate-200">
+              <button onclick="setPlaybackSpeed(0.85)" id="speed-085" class="px-2 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-semibold">0.85x</button>
+              <button onclick="setPlaybackSpeed(1.0)" id="speed-100" class="px-2 py-1.5 min-h-[36px] rounded-lg bg-indigo-600 text-white shadow-sm font-bold">1.0x</button>
+              <button onclick="setPlaybackSpeed(1.2)" id="speed-120" class="px-2 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-semibold">1.2x</button>
+            </div>
+
+            <!-- Big Play Audio Button (Min 44px height) -->
+            <button onclick="playListeningAudio()" id="btn-play-listening" class="w-full sm:w-auto px-5 py-2.5 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 active:scale-95">
+              <svg id="play-icon-svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+              <span id="play-audio-text" data-i18n="btnPlayAudio">播放音檔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Transcript Disclosure Bar -->
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] sm:text-xs text-slate-400 light:text-slate-500 italic" data-i18n="transcriptTip">💡 建議盲聽 2 次後再打開逐字稿對照。</span>
+          <button onclick="toggleTranscript()" id="transcript-toggle-btn" class="text-xs text-indigo-400 font-bold hover:underline flex items-center gap-1 p-1">
+            <span data-i18n="btnShowTranscript">顯示逐字稿</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+        </div>
+
+        <!-- Hidden Transcript Panel -->
+        <div id="transcript-panel" class="hidden p-3.5 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 text-xs sm:text-sm text-slate-200 light:text-slate-700 leading-relaxed">
+          <div class="font-bold text-xs uppercase text-slate-400 mb-1.5" data-i18n="transcriptTitle">英文廣播原文 (Transcript)</div>
+          <p id="listening-transcript-text" class="mb-2.5"></p>
+          <div class="text-xs text-slate-400 light:text-slate-500 pt-2 border-t border-dark-border light:border-slate-200" id="listening-key-notes"></div>
+        </div>
+      </div>
+
+      <!-- Listening Exercises: Dictation + Multiple Choice -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+        
+        <!-- Dictation Task -->
+        <div class="lg:col-span-5 bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-6 shadow-sm space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-dark-border light:border-slate-100">
+            <h4 class="text-xs sm:text-sm font-bold text-white light:text-slate-800 flex items-center gap-1.5">
+              <span>✍️️</span>
+              <span data-i18n="dictationTitle">聽力填空抓字測驗 (Dictation)</span>
+            </h4>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold" data-i18n="dictationBadge">耳朵敏銳度</span>
+          </div>
+          <p class="text-xs text-slate-400 light:text-slate-500" data-i18n="dictationDesc">聽出下列句子中缺少的關鍵單字並正確拼出：</p>
+
+          <div class="p-3.5 bg-dark-surface light:bg-slate-50 rounded-xl border border-dark-border light:border-slate-200 text-xs sm:text-sm text-slate-200 light:text-slate-700 font-medium leading-relaxed" id="dictation-prompt-box"></div>
+
+          <div class="space-y-2">
+            <div class="flex gap-2">
+              <input type="text" id="dictation-input" placeholder="輸入聽到的單字..." class="w-full text-xs sm:text-sm px-3.5 py-2.5 min-h-[44px] bg-dark-surface light:bg-white border border-dark-border light:border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none font-medium text-white light:text-slate-900">
+              <button onclick="checkDictationAnswer()" class="px-4 py-2.5 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow transition whitespace-nowrap active:scale-95" data-i18n="btnCheckAnswer">
+                檢查答案
+              </button>
+            </div>
+            <div id="dictation-feedback" class="text-xs font-semibold hidden p-2.5 rounded-lg"></div>
+          </div>
+        </div>
+
+        <!-- Comprehension Multiple Choice -->
+        <div class="lg:col-span-7 bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
+          <div class="pb-2 border-b border-dark-border light:border-slate-100">
+            <h4 class="text-xs sm:text-sm font-bold text-white light:text-slate-800 flex items-center gap-1.5">
+              <span>🎯</span>
+              <span data-i18n="listeningCompTitle">聽力理解單選題</span>
+            </h4>
+          </div>
+
+          <div id="listening-questions-container" class="space-y-4"></div>
+        </div>
+      </div>
+
+      <!-- Action to Complete Today's Sprint -->
+      <div class="bg-dark-card light:bg-white p-3.5 sm:p-4 rounded-2xl border border-dark-border light:border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <button onclick="goToModule(1)" class="px-4 py-2.5 min-h-[44px] rounded-xl text-slate-300 light:text-slate-600 hover:bg-slate-800 light:hover:bg-slate-100 text-xs font-bold transition" data-i18n="btnBackReading">
+          ← 回到閱讀模組
+        </button>
+        <button onclick="finishDailySprint()" class="w-full sm:w-auto px-7 py-3 min-h-[48px] rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 active:scale-95">
+          <span data-i18n="btnFinishSprint">完成今日 30 分鐘衝刺 & 立即打卡 🎉</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- MODULE 4: DAILY PUNCH-IN, HEATMAP & ANALYTICS -->
+    <section id="module-container-3" class="module-view hidden space-y-4 sm:space-y-6">
+      
+      <!-- Celebration Header -->
+      <div class="bg-gradient-to-tr from-slate-900 via-indigo-950 to-dark-bg rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold mb-3">
+              <span data-i18n="reportBannerBadge">✓ 今日學習已自動記錄至本機 LocalStorage</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" data-i18n="reportHeroTitle">Awesome! 今日練習已成功打卡</h2>
+            <p class="mt-1 text-slate-300 text-xs sm:text-sm leading-relaxed" data-i18n="reportHeroDesc">
+              每天 30 分鐘的高效累積就是你多益進步的最大武器。底下為你統計的歷史熱力圖與學習數據：
+            </p>
+          </div>
+          <button onclick="openStatsModal()" class="px-4 py-2.5 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2 shrink-0">
+            <span>📊</span>
+            <span data-i18n="btnViewFullLogs">完整打卡歷程</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Metrics Breakdown Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-dark-card light:bg-white p-4 sm:p-5 rounded-2xl border border-dark-border light:border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-lg sm:text-xl shrink-0">
+            📚
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider truncate" data-i18n="metricVocab">今日單字量</div>
+            <div class="text-lg sm:text-2xl font-black text-white light:text-slate-800" id="report-vocab-count">12 Words</div>
+          </div>
+        </div>
+
+        <div class="bg-dark-card light:bg-white p-4 sm:p-5 rounded-2xl border border-dark-border light:border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-lg sm:text-xl shrink-0">
+            📖
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider truncate" data-i18n="metricReading">閱讀答對率</div>
+            <div class="text-lg sm:text-2xl font-black text-white light:text-slate-800" id="report-reading-score">100%</div>
+          </div>
+        </div>
+
+        <div class="bg-dark-card light:bg-white p-4 sm:p-5 rounded-2xl border border-dark-border light:border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-lg sm:text-xl shrink-0">
+            🎧
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider truncate" data-i18n="metricListening">聽力答對率</div>
+            <div class="text-lg sm:text-2xl font-black text-white light:text-slate-800" id="report-listening-score">100%</div>
+          </div>
+        </div>
+
+        <div class="bg-dark-card light:bg-white p-4 sm:p-5 rounded-2xl border border-dark-border light:border-slate-200 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg sm:text-xl shrink-0">
+            🔥
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider truncate" data-i18n="metricStreak">連續打卡</div>
+            <div class="text-lg sm:text-2xl font-black text-amber-400" id="report-streak-days">1 天</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 30-Day Punch-In Heatmap Tracker (GitHub style) -->
+      <div class="bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-6 shadow-sm space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🟩</span>
+            <h3 class="text-xs sm:text-sm font-bold text-white light:text-slate-900" data-i18n="heatmapTitle">30天學習熱力打卡牆 (30-Day Punch-In Grid)</h3>
+          </div>
+          <div class="flex items-center gap-1 text-[10px] text-slate-400">
+            <span>少</span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-dark-surface light:bg-slate-200 border border-dark-border"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-emerald-900 border border-emerald-700"></span>
+            <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 border border-emerald-400"></span>
+            <span>多</span>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-400" data-i18n="heatmapDesc">
+          方塊代表過去 30 天的打卡紀錄。點擊任一方塊即可查看該日的學習分鐘數與作答成效：
+        </p>
+
+        <!-- Grid Container -->
+        <div class="overflow-x-auto custom-scrollbar pb-2">
+          <div id="heatmap-grid" class="flex gap-1.5 min-w-[360px] p-2 rounded-xl bg-dark-surface/60 light:bg-slate-50 border border-dark-border light:border-slate-200">
+            <!-- 30 boxes injected via JavaScript -->
+          </div>
+        </div>
+        <div id="heatmap-cell-detail" class="text-xs text-indigo-400 font-medium italic min-h-[18px]">
+          點選上方任一方格檢視打卡詳情
+        </div>
+      </div>
+
+      <!-- Action Plan & Next Lesson -->
+      <div class="bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-5 sm:p-7 shadow-sm">
+        <h3 class="text-base sm:text-lg font-bold text-white light:text-slate-800 mb-1.5" data-i18n="reportNextTitle">明日學習指引</h3>
+        <p class="text-xs sm:text-sm text-slate-300 light:text-slate-600 mb-5 leading-relaxed" id="report-next-desc">
+          明日進度將著重於 Part 6 常用填空介系詞搭配與客戶服務會議紀錄。
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="triggerSimulateGenerate()" class="w-full sm:w-auto px-6 py-3 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span data-i18n="btnLoadNextDay">自動載入下一天進度</span>
+          </button>
+          <button onclick="goToModule(0)" class="w-full sm:w-auto px-6 py-3 min-h-[44px] rounded-xl border border-dark-border light:border-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-800 light:hover:bg-slate-50 font-bold text-xs sm:text-sm transition text-center" data-i18n="btnReviewVocab">
+            複習今日 12 個單字
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: STUDY STATS & PUNCH-IN LOGS (打卡紀錄與熱力圖詳情彈窗) -->
+  <div id="stats-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3.5 sm:p-4">
+    <div class="bg-dark-card light:bg-white rounded-3xl max-w-xl w-full p-5 sm:p-7 shadow-2xl border border-dark-border light:border-slate-200 max-h-[90vh] overflow-y-auto custom-scrollbar text-white light:text-slate-900">
+      
+      <div class="flex items-center justify-between pb-3.5 border-b border-dark-border light:border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            📈
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-white light:text-slate-900" data-i18n="statsModalTitle">個人打卡與學習統計</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="statsModalSub">永久保存在本機瀏覽器 LocalStorage，換日自動計算連續天數</p>
+          </div>
+        </div>
+        <button onclick="closeStatsModal()" class="text-slate-400 hover:text-white p-2 min-h-[36px] min-w-[36px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Cumulative counters -->
+      <div class="grid grid-cols-3 gap-2.5 my-4">
+        <div class="p-3 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 text-center">
+          <div class="text-[10px] text-slate-400 font-bold uppercase" data-i18n="statTotalDays">累計打卡天數</div>
+          <div class="text-lg sm:text-xl font-black text-emerald-400 mt-0.5" id="stat-total-days">0 天</div>
+        </div>
+        <div class="p-3 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 text-center">
+          <div class="text-[10px] text-slate-400 font-bold uppercase" data-i18n="statCurrentStreak">目前連續天數</div>
+          <div class="text-lg sm:text-xl font-black text-amber-400 mt-0.5" id="stat-current-streak">0 天</div>
+        </div>
+        <div class="p-3 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 text-center">
+          <div class="text-[10px] text-slate-400 font-bold uppercase" data-i18n="statTotalMins">累計學習時間</div>
+          <div class="text-lg sm:text-xl font-black text-indigo-400 mt-0.5" id="stat-total-mins">0 分鐘</div>
+        </div>
+      </div>
+
+      <!-- History Log List -->
+      <div class="space-y-2">
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider" data-i18n="statHistoryList">歷史打卡紀錄 (最近 15 筆)</div>
+        <div id="stats-log-list" class="space-y-2 max-h-56 overflow-y-auto custom-scrollbar pr-1">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Clear/Reset Option -->
+      <div class="mt-5 pt-3.5 border-t border-dark-border light:border-slate-100 flex items-center justify-between">
+        <button onclick="clearStudyHistory()" class="text-xs text-rose-400 hover:text-rose-300 font-medium underline">
+          清除本機打卡紀錄
+        </button>
+        <button onclick="closeStatsModal()" class="px-4 py-2 min-h-[40px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: HOW TO RUN INDEPENDENTLY & GEMINI API KEY SETUP -->
+  <div id="deploy-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3.5 sm:p-4">
+    <div class="bg-dark-card light:bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-dark-border light:border-slate-200 max-h-[90vh] overflow-y-auto custom-scrollbar text-white light:text-slate-900">
+      
+      <div class="flex items-center justify-between pb-3.5 border-b border-dark-border light:border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+            💻
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-white light:text-slate-900" data-i18n="modalTitle">如何單獨使用？ (完全脫離 Gemini 運作)</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="modalSubtitle">此專案為 100% 獨立的 Single-File Web App，無需任何伺服器！</p>
+          </div>
+        </div>
+        <button onclick="closeDeployModal()" class="text-slate-400 hover:text-white p-2 min-h-[36px] min-w-[36px]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4 sm:space-y-5 text-xs sm:text-sm text-slate-300 light:text-slate-700">
+        <!-- Option 1: Direct File Download -->
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
+          <div class="flex items-center justify-between mb-1.5">
+            <h4 class="font-bold text-white light:text-indigo-950 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">1</span>
+              <span data-i18n="modalOpt1Title">下載 HTML 檔案直接雙擊執行</span>
+            </h4>
+            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300">RECOMMENDED</span>
+          </div>
+          <p class="text-xs text-slate-300 light:text-indigo-900 leading-relaxed mb-3" data-i18n="modalOpt1Desc">
+            打卡紀錄、暗色主題、發音引擎與高頻題庫全整合在單一檔案中。直接下載儲存到電腦或手機，雙擊就能用 Chrome、Edge 或 Safari 開啟離線複習！
+          </p>
+          <button onclick="downloadSelfHtml()" class="w-full py-2.5 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span data-i18n="btnDownloadHtml">下載 toeic-30-daily.html 離線檔</span>
+          </button>
+        </div>
+
+        <!-- Option 2: GitHub Pages -->
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 space-y-1.5">
+          <h4 class="font-bold text-white light:text-slate-900 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs">2</span>
+            <span data-i18n="modalOpt2Title">免費架設到手機主畫面 (GitHub Pages)</span>
+          </h4>
+          <ol class="list-decimal list-inside text-xs text-slate-400 light:text-slate-600 space-y-1 pl-1 leading-relaxed" data-i18n="modalOpt2List">
+            <li>在 GitHub 建立一個公開 Repository（例如 toeic-daily）。</li>
+            <li>將下載的檔案命名為 index.html 上傳。</li>
+            <li>在 Settings > Pages 啟用部署，即可取得專屬網址，手機瀏覽器可「加入主畫面」當作專用 App 使用！</li>
+          </ol>
+        </div>
+
+        <!-- Option 3: Gemini Free API Key -->
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 space-y-2.5">
+          <h4 class="font-bold text-white light:text-slate-900 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs">3</span>
+            <span data-i18n="modalOpt3Title">串接 Google 免費 Gemini API Key (可選)</span>
+          </h4>
+          <p class="text-xs text-slate-400 light:text-slate-600 leading-relaxed" data-i18n="modalOpt3Desc">
+            前往 Google AI Studio (aistudio.google.com) 免費領取 API Key。填入下方後，每次點擊「AI 生成」將自動呼叫 Gemini 產出全新多益題目（儲存於本機 LocalStorage，不外洩）：
+          </p>
+          <div class="flex gap-2">
+            <input type="password" id="user-gemini-key" placeholder="貼上 AI Studio 金鑰 (AIzaSy...)" class="w-full text-xs px-3 py-2 min-h-[40px] bg-dark-bg light:bg-white border border-dark-border light:border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono text-white light:text-slate-900">
+            <button onclick="saveApiKey()" class="px-4 py-2 min-h-[40px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold whitespace-nowrap transition active:scale-95" data-i18n="btnSaveKey">
+              儲存金鑰
+            </button>
+          </div>
+          <div id="api-key-status" class="text-[11px] text-slate-400 italic">未填寫時將使用內建的高頻題庫。</div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-dark-border light:border-slate-100 flex justify-end">
+        <button onclick="closeDeployModal()" class="px-5 py-2.5 min-h-[40px] rounded-xl bg-slate-800 light:bg-slate-100 text-slate-300 light:text-slate-700 font-bold text-xs transition hover:bg-slate-700" data-i18n="btnClose">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Localized Multilingual Strings
+    const i18n = {
+      zh: {
+        badgeSprint: "Daily",
+        subTitle: "30-Minute High-Impact Mastery",
+        tierLabel: "目標級別:",
+        streakLabel: "連續學習",
+        btnRunAlone: "單獨運行",
+        tabVocab: "核心單字庫 (12字)",
+        tabReading: "Part 7 商業閱讀",
+        tabListening: "Part 3/4 聽力音檔",
+        tabScorecard: "學習打卡 & 成績卡",
+        tabVocabShort: "單字庫",
+        tabReadingShort: "閱讀理解",
+        tabListeningShort: "聽力訓練",
+        tabScoreShort: "打卡紀錄",
+        btnAiGenerate: "AI 生成",
+        vocabStep: "⏱️ 模組 1/3 • 預估 7 分鐘 • 12 個核心單字",
+        vocabHeroTitle: "商務必考高頻字彙庫 & 搭配詞",
+        vocabHeroDesc: "點擊任一單字即可聆聽真人語音，學習商務固定搭配詞（Collocations）與實戰例句。",
+        vocabListHeader: "今日 12 個單字清單",
+        btnPrev: "上一個",
+        btnNext: "下一個",
+        btnToReading: "前往 Part 7 商業閱讀",
+        readingStep: "⏱️ 模組 2/3 • 預估 13 分鐘",
+        readingHeroTitle: "Part 7 商業閱讀與文本線索定位",
+        readingHeroDesc: "分析職場真實信件與通知。點擊「定位答案線索」可自動在原文中突顯對應的證據句。",
+        btnClues: "定位答案線索",
+        btnBackVocab: "← 回到單字庫",
+        btnToListening: "前往聽力訓練",
+        listeningStep: "⏱️ 模組 3/3 • 預估 10 分鐘",
+        listeningHeroTitle: "聽力仿真廣播與核心字聽打訓練",
+        listeningHeroDesc: "透過語音合成引擎播放美音/英音廣播，支援 0.85x~1.2x 語速調節，並完成核心關鍵字聽打與理解測驗。",
+        btnPlayAudio: "播放音檔",
+        transcriptTip: "💡 建議盲聽 2 次後再打開逐字稿對照。",
+        btnShowTranscript: "顯示逐字稿",
+        transcriptTitle: "英文廣播原文 (Transcript)",
+        dictationTitle: "聽力填空抓字測驗 (Dictation)",
+        dictationBadge: "耳朵敏銳度",
+        dictationDesc: "聽出下列句子中缺少的關鍵單字並正確拼出：",
+        btnCheckAnswer: "檢查答案",
+        listeningCompTitle: "聽力理解單選題",
+        btnBackReading: "← 回到閱讀模組",
+        btnFinishSprint: "完成今日 30 分鐘衝刺 & 立即打卡 🎉",
+        reportBannerBadge: "✓ 今日學習已自動記錄至本機 LocalStorage",
+        reportHeroTitle: "Awesome! 今日練習已成功打卡",
+        reportHeroDesc: "每天 30 分鐘的高效累積就是你多益進步的最大武器。底下為你統計的歷史熱力圖與學習數據：",
+        btnViewFullLogs: "完整打卡歷程",
+        metricVocab: "今日單字量",
+        metricReading: "閱讀答對率",
+        metricListening: "聽力答對率",
+        metricStreak: "連續打卡",
+        heatmapTitle: "30天學習熱力打卡牆 (30-Day Punch-In Grid)",
+        heatmapDesc: "方塊代表過去 30 天的打卡紀錄。點擊任一方塊即可查看該日的學習分鐘數與作答成效：",
+        reportNextTitle: "明日學習指引",
+        btnLoadNextDay: "自動載入下一天進度",
+        btnReviewVocab: "複習今日 12 個單字",
+        statsModalTitle: "個人打卡與學習統計",
+        statsModalSub: "永久保存在本機瀏覽器 LocalStorage，換日自動計算連續天數",
+        statTotalDays: "累計打卡天數",
+        statCurrentStreak: "目前連續天數",
+        statTotalMins: "累計學習時間",
+        statHistoryList: "歷史打卡紀錄 (最近 15 筆)",
+        modalTitle: "如何單獨使用？ (完全脫離 Gemini 運作)",
+        modalSubtitle: "此專案為 100% 獨立的 Single-File Web App，無需任何伺服器！",
+        modalOpt1Title: "下載 HTML 檔案直接雙擊執行",
+        modalOpt1Desc: "打卡紀錄、暗色主題、發音引擎與高頻題庫全整合在單一檔案中。直接下載儲存到電腦或手機，雙擊就能用 Chrome、Edge 或 Safari 開啟離線複習！",
+        btnDownloadHtml: "下載 toeic-30-daily.html 離線檔",
+        modalOpt2Title: "免費架設到手機主畫面 (GitHub Pages)",
+        modalOpt2List: "<li>在 GitHub 建立一個公開 Repository（例如 toeic-daily）。</li><li>將下載的檔案命名為 index.html 上傳。</li><li>在 Settings > Pages 啟用部署，即可取得專屬網址，手機瀏覽器可「加入主畫面」當作專用 App 使用！</li>",
+        modalOpt3Title: "串接 Google 免費 Gemini API Key (可選)",
+        modalOpt3Desc: "前往 Google AI Studio (aistudio.google.com) 免費領取 API Key。填入下方後，每次點擊「AI 生成」將自動呼叫 Gemini 產出全新多益題目（儲存於本機 LocalStorage，不外洩）：",
+        btnSaveKey: "儲存金鑰",
+        btnClose: "關閉",
+        tapToRevealHint: "點擊顯示中文釋義",
+        clueExplTitle: "💡 題型解析與證據線索",
+        listenNotesLabel: "聽力解題技巧："
+      },
+      en: {
+        badgeSprint: "Daily",
+        subTitle: "30-Minute High-Impact Mastery",
+        tierLabel: "Target Tier:",
+        streakLabel: "Streak",
+        btnRunAlone: "Run Standalone",
+        tabVocab: "Core Vocab (12 Words)",
+        tabReading: "Part 7 Reading",
+        tabListening: "Part 3/4 Listening",
+        tabScorecard: "Daily Punch-in & Stats",
+        tabVocabShort: "Vocab",
+        tabReadingShort: "Reading",
+        tabListeningShort: "Listening",
+        tabScoreShort: "Punch-in",
+        btnAiGenerate: "Generate",
+        vocabStep: "⏱️ Module 1/3 • Est. Time: 7 mins • 12 Core Words",
+        vocabHeroTitle: "High-Frequency Business Vocab & Collocations",
+        vocabHeroDesc: "Tap any word to hear speech audio, and explore high-impact collocations and real-world corporate examples.",
+        vocabListHeader: "Today's 12 Words",
+        btnPrev: "Previous",
+        btnNext: "Next",
+        btnToReading: "Proceed to Part 7 Reading",
+        readingStep: "⏱️ Module 2/3 • Est. Time: 13 mins",
+        readingHeroTitle: "Part 7 Reading Comprehension & Evidence Locator",
+        readingHeroDesc: "Analyze real-world business correspondence. Click 'Locate Evidence' to highlight text evidence automatically.",
+        btnClues: "Locate Evidence",
+        btnBackVocab: "← Back to Vocabulary",
+        btnToListening: "Proceed to Listening",
+        listeningStep: "⏱️ Module 3/3 • Est. Time: 10 mins",
+        listeningHeroTitle: "Audio Simulation & Dictation Drill",
+        listeningHeroDesc: "Listen to business public addresses in US/UK accents with 0.85x~1.2x playback speed, dictation training, and comprehension checks.",
+        btnPlayAudio: "Play Audio",
+        transcriptTip: "💡 Recommendation: Listen blindly twice before opening the transcript.",
+        btnShowTranscript: "Show Audio Script",
+        transcriptTitle: "Audio Transcript",
+        dictationTitle: "Ear-Training Keyword Dictation",
+        dictationBadge: "Acoustic Focus",
+        dictationDesc: "Listen for the missing keyword in the passage and spell it correctly:",
+        btnCheckAnswer: "Verify Spelling",
+        listeningCompTitle: "Listening Comprehension Check",
+        btnBackReading: "← Back to Reading",
+        btnFinishSprint: "Complete 30-Min Sprint & Punch In 🎉",
+        reportBannerBadge: "✓ Daily study successfully logged to LocalStorage",
+        reportHeroTitle: "Outstanding! Daily Module Accomplished",
+        reportHeroDesc: "Consistency builds high TOEIC scores. Below is your cumulative punch-in heatmap and learning analytics:",
+        btnViewFullLogs: "Full Punch-in History",
+        metricVocab: "Words Mastered",
+        metricReading: "Reading Accuracy",
+        metricListening: "Listening Accuracy",
+        metricStreak: "Current Streak",
+        heatmapTitle: "30-Day Punch-In Heatmap Grid",
+        heatmapDesc: "Squares represent the past 30 days. Click any cell to inspect minutes studied and accuracy:",
+        reportNextTitle: "Tomorrow's Focus",
+        btnLoadNextDay: "Load Next Lesson",
+        btnReviewVocab: "Review 12 Words",
+        statsModalTitle: "Personal Punch-in & Learning Analytics",
+        statsModalSub: "Persisted permanently in browser LocalStorage with automatic daily streak calculations",
+        statTotalDays: "Total Days",
+        statCurrentStreak: "Active Streak",
+        statTotalMins: "Minutes Studied",
+        statHistoryList: "Recent Study History (Last 15)",
+        modalTitle: "How to Run Standalone (Independent of Gemini)",
+        modalSubtitle: "This project is a 100% self-contained Single-File Web App. No backend server required!",
+        modalOpt1Title: "Download & Run HTML Directly",
+        modalOpt1Desc: "Punch-in logs, dark theme, speech engine, and exam database are all in this single index.html file. Save and open directly in Chrome, Edge, or mobile Safari.",
+        btnDownloadHtml: "Download toeic-30-daily.html",
+        modalOpt2Title: "Free Hosting on GitHub Pages",
+        modalOpt2List: "<li>Create a public repository on GitHub (e.g. toeic-daily).</li><li>Upload this downloaded file named as index.html.</li><li>Under Settings > Pages, select main branch to receive a permanent URL that you can add to your phone home screen!</li>",
+        modalOpt3Title: "Connect your Free Gemini API Key (Optional)",
+        modalOpt3Desc: "Head to Google AI Studio (aistudio.google.com) to grab a free key. Paste below to let Gemini automatically generate fresh questions whenever you hit 'Generate':",
+        btnSaveKey: "Save Key",
+        btnClose: "Close",
+        tapToRevealHint: "Tap to reveal translation",
+        clueExplTitle: "💡 Analysis & Evidence Clues",
+        listenNotesLabel: "Listening Exam Tip:"
+      }
+    };
+
+    // Full Curricula Database
+    const tierData = {
+      'tier-500': [
+        {
+          id: 0,
+          dayNumber: 1,
+          topicZh: "日常行政手續與辦公室常見溝通 (Office Operations)",
+          topicEn: "Office Operations & Administrative Tasks",
+          badgeLabelZh: "500~650分 基礎職場起步",
+          badgeLabelEn: "500~650 Foundation",
+          vocabularies: [
+            {
+              word: "attend", pos: "v.", phonetic: "/əˈtend/", meaningZh: "出席、參加",
+              definition: "To be present at an event, meeting, or function.",
+              collocations: ["attend a meeting", "attend a workshop", "mandatory to attend"],
+              sentence: "All department staff must attend the quarterly safety briefing tomorrow.",
+              sentenceZh: "所有部門同仁皆必須出席明天舉辦的季度工安簡報。"
+            },
+            {
+              word: "submit", pos: "v.", phonetic: "/səbˈmɪt/", meaningZh: "提交、繳交",
+              definition: "To give a document or proposal to someone in authority.",
+              collocations: ["submit a report", "submit receipts", "submit by Friday"],
+              sentence: "Please submit your completed time sheets before 5:00 PM today.",
+              sentenceZh: "請在今天下午五點之前繳交您填妥的工時表。"
+            },
+            {
+              word: "receipt", pos: "n.", phonetic: "/rɪˈsiːt/", meaningZh: "收據、發票",
+              definition: "A written acknowledgment that goods or money have been received.",
+              collocations: ["keep the receipt", "attach official receipts", "upon receipt of"],
+              sentence: "You must attach the original receipt to claim your travel allowance.",
+              sentenceZh: "您必須附上原始收據以請領出差津貼。"
+            },
+            {
+              word: "confirm", pos: "v.", phonetic: "/kənˈfɜːm/", meaningZh: "確認、證實",
+              definition: "To state or show that something is definitely true or correct.",
+              collocations: ["confirm a reservation", "confirm attendance", "written confirmation"],
+              sentence: "The receptionist called the client to confirm hotel reservation details.",
+              sentenceZh: "接待人員致電客戶以確認飯店預訂詳情。"
+            },
+            {
+              word: "schedule", pos: "n. / v.", phonetic: "/ˈskedʒ.uːl/", meaningZh: "行程表；排定",
+              definition: "A plan that lists expected times for various events to happen.",
+              collocations: ["ahead of schedule", "behind schedule", "schedule an appointment"],
+              sentence: "The project is currently running two weeks ahead of schedule.",
+              sentenceZh: "該專案目前比原定時程提前了兩週。"
+            },
+            {
+              word: "inquire", pos: "v.", phonetic: "/ɪnˈkwaɪər/", meaningZh: "詢問、打聽",
+              definition: "To ask someone for information about something.",
+              collocations: ["inquire about", "inquire whether", "general inquiry"],
+              sentence: "A customer called this morning to inquire about product delivery times.",
+              sentenceZh: "一位客戶今天早晨來電詢問產品的送貨時間。"
+            },
+            {
+              word: "notify", pos: "v.", phonetic: "/ˈnoʊ.t̬ə.faɪ/", meaningZh: "正式通知、告知",
+              definition: "To formally inform someone of something.",
+              collocations: ["notify the manager", "notify in advance", "promptly notify"],
+              sentence: "Please notify human resources if your residential address changes.",
+              sentenceZh: "若您的居住地址有所變更，請立即通知人事部。"
+            },
+            {
+              word: "extension", pos: "n.", phonetic: "/ɪkˈsten.ʃən/", meaningZh: "分機號碼；延期",
+              definition: "An additional telephone connected to a main line; or extra allotted time.",
+              collocations: ["phone extension", "request an extension", "deadline extension"],
+              sentence: "You can dial extension 402 to reach the IT help desk.",
+              sentenceZh: "您可以撥打分機 402 聯繫 IT 支援小組。"
+            },
+            {
+              word: "register", pos: "v. / n.", phonetic: "/ˈredʒ.ə.stɚ/", meaningZh: "報名、登記",
+              definition: "To enter one's name on an official list or directory.",
+              collocations: ["register for a conference", "online registration", "register in person"],
+              sentence: "Employees are encouraged to register for the software training seminar.",
+              sentenceZh: "鼓勵員工報名參加這場軟體操作培訓研討會。"
+            },
+            {
+              word: "stationery", pos: "n.", phonetic: "/ˈsteɪ.ʃə.ner.i/", meaningZh: "辦公文具、信紙",
+              definition: "Writing materials and office supplies such as pens, paper, and envelopes.",
+              collocations: ["order office stationery", "stationery cupboard", "stationery supplies"],
+              sentence: "The administrative assistant places a monthly order for office stationery.",
+              sentenceZh: "行政助理每月都會統整訂購一次辦公室文具。"
+            },
+            {
+              word: "vacant", pos: "adj.", phonetic: "/ˈveɪ.kənt/", meaningZh: "空缺的、未被佔用的",
+              definition: "Not filled, occupied, or used.",
+              collocations: ["vacant position", "vacant desk", "remain vacant"],
+              sentence: "There is currently a vacant receptionist desk in the main lobby.",
+              sentenceZh: "目前一樓大廳有一個接待櫃台空缺。"
+            },
+            {
+              word: "remind", pos: "v.", phonetic: "/rɪˈmaɪnd/", meaningZh: "提醒、使想起",
+              definition: "To cause someone to remember someone or something.",
+              collocations: ["remind someone to", "gentle reminder", "remind of the rules"],
+              sentence: "This email is to remind everyone that the building closes early today.",
+              sentenceZh: "這封電子郵件旨在提醒大家大樓今天會提早關閉。"
+            }
+          ],
+          reading: {
+            docType: "Office Internal Notice",
+            subject: "Notice: Annual Office Supplies Restocking & Desk Cleanliness",
+            from: "Facilities Management (facilities@eastwood.com)",
+            to: "All Staff",
+            date: "October 14, 2026",
+            paragraphs: [
+              "Dear Team,",
+              "As we prepare for our upcoming quarterly inventory count, <span class='highlight-clue' id='clue-1'>all department representatives must submit their stationery order lists before Friday at 4:00 PM</span>.",
+              "Please inspect your department supply cabinet before requesting new items. Any requests for special equipment exceeding $150 <span class='highlight-clue' id='clue-2'>will require direct email confirmation from your branch supervisor</span>.",
+              "Additionally, the maintenance crew will deep clean all vacant cubicles on the 3rd floor this Saturday. <span class='highlight-clue' id='clue-3'>Please ensure all personal mugs and files are stored inside your lockers</span> before leaving on Friday afternoon.",
+              "Best regards,<br>Facilities Management"
+            ],
+            questions: [
+              {
+                id: "r1",
+                question: "1. When is the deadline for department representatives to submit stationery orders?",
+                clueTarget: "clue-1",
+                options: [
+                  "Wednesday at noon",
+                  "Friday at 4:00 PM",
+                  "Saturday morning after cleaning",
+                  "Next Monday at 9:00 AM"
+                ],
+                correctIndex: 1,
+                explanationZh: "文章第一段明確指出：'all department representatives must submit their stationery order lists before Friday at 4:00 PM'。",
+                explanationEn: "Paragraph 1 clearly states that department reps must submit lists before Friday at 4:00 PM."
+              },
+              {
+                id: "r2",
+                question: "2. What is required for special equipment requests over $150?",
+                clueTarget: "clue-2",
+                options: [
+                  "A telephone call to the CEO",
+                  "Direct email confirmation from a branch supervisor",
+                  "Paying in cash at the reception desk",
+                  "Submitting three original store receipts"
+                ],
+                correctIndex: 1,
+                explanationZh: "第二段註明：'requests for special equipment exceeding $150 will require direct email confirmation from your branch supervisor'。",
+                explanationEn: "Paragraph 2 notes that requests exceeding $150 require supervisor email confirmation."
+              }
+            ]
+          },
+          listening: {
+            title: "Office PA: Elevator Maintenance & Staircase Access",
+            topicTag: "TOEIC Part 4 • Office Public Announcement",
+            spokenText: "Good morning everyone. This is a quick administrative announcement. The service elevators in Tower B will undergo mandatory inspections from 1:00 PM to 3:00 PM this afternoon. During this time, please use the central staircase or the passenger elevators in Tower A. If you are expecting heavy package deliveries, please notify the reception desk in advance so security can assist you. Thank you for your patience and cooperation.",
+            dictationTarget: "elevators",
+            dictationPrompt: "The service [_____] in Tower B will undergo mandatory inspections this afternoon.",
+            questions: [
+              {
+                id: "l1",
+                question: "1. What will happen between 1:00 PM and 3:00 PM?",
+                options: [
+                  "The central cafeteria will be closed",
+                  "Service elevators in Tower B will be inspected",
+                  "Fire safety drills will take place",
+                  "New office furniture will be delivered"
+                ],
+                correctIndex: 1,
+                explanationZh: "廣播講者說明：'The service elevators in Tower B will undergo mandatory inspections from 1:00 PM to 3:00 PM'。",
+                explanationEn: "The speaker states that service elevators in Tower B will undergo mandatory inspections."
+              }
+            ]
+          }
+        },
+        {
+          id: 1,
+          dayNumber: 2,
+          topicZh: "會議安排與行程確認 (Meeting Coordination)",
+          topicEn: "Meeting Schedules & Itinerary Confirmation",
+          badgeLabelZh: "500~650分 基礎職場起步",
+          badgeLabelEn: "500~650 Foundation",
+          vocabularies: [
+            {
+              word: "postpone", pos: "v.", phonetic: "/poʊstˈpoʊn/", meaningZh: "延期、推遲",
+              definition: "To cause or arrange for something to take place at a later time.",
+              collocations: ["postpone the meeting", "postpone until next week", "forced to postpone"],
+              sentence: "We had to postpone the briefing because the projector was broken.",
+              sentenceZh: "因為投影機壞了，我們不得不將簡報會議延期。"
+            },
+            {
+              word: "agenda", pos: "n.", phonetic: "/əˈdʒen.də/", meaningZh: "議程、討論事項",
+              definition: "A list of items to be discussed at a formal meeting.",
+              collocations: ["meeting agenda", "items on the agenda", "adopt the agenda"],
+              sentence: "The manager distributed the meeting agenda to all attendees yesterday.",
+              sentenceZh: "經理昨天已將會議議程發送給所有與會同仁。"
+            },
+            {
+              word: "convenient", pos: "adj.", phonetic: "/kənˈviː.ni.ənt/", meaningZh: "方便的、適合的時間",
+              definition: "Fitting in well with a person's needs, activities, and plans.",
+              collocations: ["at your earliest convenience", "convenient time", "convenient location"],
+              sentence: "Please let us know if Tuesday morning is convenient for you.",
+              sentenceZh: "請告知我們週二上午是否對您方便。"
+            },
+            {
+              word: "reserve", pos: "v.", phonetic: "/rɪˈzɜːv/", meaningZh: "預訂、保留",
+              definition: "To arrange for a room or seat to be kept for specific use.",
+              collocations: ["reserve a conference room", "reserve in advance", "all rights reserved"],
+              sentence: "Make sure to reserve Conference Room B before noon.",
+              sentenceZh: "請確保在中午前預約好 B 會議室。"
+            },
+            {
+              word: "available", pos: "adj.", phonetic: "/əˈveɪ.lə.bəl/", meaningZh: "有空的、可取得的",
+              definition: "Able to be used or reached; at someone's disposal.",
+              collocations: ["available for questions", "currently available", "make available"],
+              sentence: "Mr. Chen will be available for questions after 2:00 PM.",
+              sentenceZh: "陳先生在下午兩點後將有空回答提問。"
+            },
+            {
+              word: "discuss", pos: "v.", phonetic: "/dɪˈskʌs/", meaningZh: "討論、商討",
+              definition: "To talk about something with another person or team.",
+              collocations: ["discuss the proposal", "discuss further", "openly discuss"],
+              sentence: "The committee will meet tomorrow to discuss the budget cuts.",
+              sentenceZh: "委員會將於明天召開會議討論預算削減事宜。"
+            },
+            {
+              word: "present", pos: "v. / adj.", phonetic: "/prɪˈzent/", meaningZh: "發表、介紹；出席的",
+              definition: "To introduce a topic or show information to an audience.",
+              collocations: ["present the findings", "all members present", "present an award"],
+              sentence: "Sophie will present the customer survey results at tomorrow's gathering.",
+              sentenceZh: "蘇菲將在明天的集會上報告客戶調查結果。"
+            },
+            {
+              word: "cancel", pos: "v.", phonetic: "/ˈkæn.səl/", meaningZh: "取消",
+              definition: "To decide that an organized event will not take place.",
+              collocations: ["cancel an order", "cancel a flight", "cancellation policy"],
+              sentence: "Bad weather forced the airline to cancel several regional flights.",
+              sentenceZh: "惡劣的天氣迫使航空公司取消了數班區域航班。"
+            },
+            {
+              word: "minutes", pos: "n.", phonetic: "/ˈmɪn.ɪts/", meaningZh: "會議紀錄",
+              definition: "The official written record of what was said and decided at a meeting.",
+              collocations: ["take the minutes", "meeting minutes", "review the minutes"],
+              sentence: "Sarah took detailed minutes during our client discussion.",
+              sentenceZh: "莎拉在我們與客戶的洽談中做了詳細的會議紀錄。"
+            },
+            {
+              word: "colleague", pos: "n.", phonetic: "/ˈkɑː.liːɡ/", meaningZh: "同事、同仁",
+              definition: "A person with whom one works in a profession or business.",
+              collocations: ["work colleagues", "senior colleagues", "greet a colleague"],
+              sentence: "I received helpful feedback from several colleagues on the marketing team.",
+              sentenceZh: "我收到了行銷團隊多位同事提供的實用建議。"
+            },
+            {
+              word: "briefing", pos: "n.", phonetic: "/ˈbriː.fɪŋ/", meaningZh: "簡報、簡短說明會",
+              definition: "A meeting for imparting concise instructions or updates.",
+              collocations: ["daily briefing", "attend a briefing", "press briefing"],
+              sentence: "The project team gathered for a 15-minute morning briefing.",
+              sentenceZh: "專案團隊齊聚參加了 15 分鐘的晨間簡報會。"
+            },
+            {
+              word: "participant", pos: "n.", phonetic: "/pɑːrˈtɪs.ə.pənt/", meaningZh: "參與者、學員",
+              definition: "A person who takes part in something.",
+              collocations: ["active participant", "seminar participant", "number of participants"],
+              sentence: "Over fifty participants signed up for the weekend digital skills workshop.",
+              sentenceZh: "超過五十名學員報名了週末的數位技能工作坊。"
+            }
+          ],
+          reading: {
+            docType: "Meeting Reminder Email",
+            subject: "Update: Friday Project Briefing Moved to Room 401",
+            from: "David Wu (d.wu@techline.com)",
+            to: "All Development Leads",
+            date: "October 15, 2026",
+            paragraphs: [
+              "Hi everyone,",
+              "Due to maintenance work in Room 302, <span class='highlight-clue' id='clue-1'>our weekly progress briefing will now take place in Room 401</span> at 10:30 AM this Friday.",
+              "The meeting agenda has been attached. Please review the timetable beforehand so we can keep our discussion brief.",
+              "If you are unable to attend in person, <span class='highlight-clue' id='clue-2'>please join via the virtual conference link</span> on our calendar invite.",
+              "Best regards,<br>David Wu"
+            ],
+            questions: [
+              {
+                id: "r1",
+                question: "1. Why was the meeting location changed?",
+                clueTarget: "clue-1",
+                options: [
+                  "Because Room 401 has better air conditioning",
+                  "Due to maintenance work taking place in Room 302",
+                  "Because the director wanted a larger cafeteria",
+                  "Due to a scheduling conflict with human resources"
+                ],
+                correctIndex: 1,
+                explanationZh: "信中直接提及：'Due to maintenance work in Room 302, our weekly progress briefing will now take place in Room 401'。",
+                explanationEn: "The memo explicitly attributes the room change to maintenance work in Room 302."
+              }
+            ]
+          },
+          listening: {
+            title: "Voicemail: Rescheduling an Appointment",
+            topicTag: "TOEIC Part 4 • Phone Voicemail",
+            spokenText: "Hello Mr. Lee, this is Carol calling from Dr. Patel's clinic to confirm your appointment for tomorrow. Unfortunately, Dr. Patel had an emergency procedure scheduled in the morning, so we need to postpone your visit to 3:30 PM. Please give our office a call at extension 201 to let us know if this new time works. Thank you!",
+            dictationTarget: "postpone",
+            dictationPrompt: "Unfortunately, Dr. Patel had an emergency procedure, so we need to [_____] your visit to 3:30 PM.",
+            questions: [
+              {
+                id: "l1",
+                question: "1. Why is Carol calling Mr. Lee?",
+                options: [
+                  "To cancel the insurance claim",
+                  "To postpone his appointment time",
+                  "To ask for a credit card number",
+                  "To order medical equipment"
+                ],
+                correctIndex: 1,
+                explanationZh: "Carol 在通話中指出因為突發醫療手術，需要延期預約（postpone your visit）。",
+                explanationEn: "Carol states that Dr. Patel had an emergency, necessitating postponing the visit."
+              }
+            ]
+          }
+        }
+      ],
+      'tier-700': [
+        {
+          id: 0,
+          dayNumber: 1,
+          topicZh: "廠商協商與合約談判 (Vendor Negotiations)",
+          topicEn: "Vendor Negotiations & Contractual Stipulations",
+          badgeLabelZh: "700~800分 進階商務經理",
+          badgeLabelEn: "700~800 Business Professional",
+          vocabularies: [
+            {
+              word: "contingency", pos: "n.", phonetic: "/kənˈtɪn.dʒən.si/", meaningZh: "應變措施、緊急突發狀況",
+              definition: "A future event or circumstance which is possible but cannot be predicted with certainty.",
+              collocations: ["contingency plan", "contingency fund", "prepare for contingencies"],
+              sentence: "The project manager developed a contingency plan to address supply chain delays.",
+              sentenceZh: "專案經理制定了緊急應變計畫，以防範供應鏈延誤。"
+            },
+            {
+              word: "reimbursement", pos: "n.", phonetic: "/ˌriː.ɪmˈbɜːs.mənt/", meaningZh: "費用核銷、補償款",
+              definition: "The act of paying back money to someone who spent it for official business.",
+              collocations: ["travel reimbursement", "seek reimbursement", "reimbursement form"],
+              sentence: "Employees must submit receipts within ten business days for reimbursement.",
+              sentenceZh: "員工必須在十個工作天內檢附收據申請費用核銷。"
+            },
+            {
+              word: "feasibility", pos: "n.", phonetic: "/ˌfiː.zəˈbɪl.ə.ti/", meaningZh: "可行性",
+              definition: "The degree to which a plan or proposal is workable and realistic.",
+              collocations: ["feasibility study", "assess the feasibility", "economic feasibility"],
+              sentence: "The board conducted a feasibility study before approving the new overseas branch.",
+              sentenceZh: "董事會在批准新海外分公司之前先進行了可行性研究。"
+            },
+            {
+              word: "negotiate", pos: "v.", phonetic: "/nəˈɡoʊ.ʃi.eɪt/", meaningZh: "談判、協商",
+              definition: "Try to reach an agreement or compromise through discussion.",
+              collocations: ["negotiate terms", "negotiate a contract", "successfully negotiate"],
+              sentence: "The purchasing team hopes to negotiate a 15% discount for bulk orders.",
+              sentenceZh: "採購團隊希望能協商出大宗採購 15% 的折扣。"
+            },
+            {
+              word: "clause", pos: "n.", phonetic: "/klɔːz/", meaningZh: "合約條款、子句",
+              definition: "A particular and separate provision in a formal contract.",
+              collocations: ["penalty clause", "confidentiality clause", "contractual clause"],
+              sentence: "Our legal counsel recommended inserting a termination clause into the lease agreement.",
+              sentenceZh: "我們的法律顧問建議在租賃合約中加入解約條款。"
+            },
+            {
+              word: "obligate", pos: "v.", phonetic: "/ˈɑː.blə.ɡeɪt/", meaningZh: "使承擔義務、束縛",
+              definition: "To bind or compel someone legally or morally.",
+              collocations: ["legally obligated", "obligate the company", "under obligation"],
+              sentence: "The signed agreement obligates the supplier to deliver goods by the 1st of every month.",
+              sentenceZh: "簽署的合約規定該供應商有義務在每月一日前送達貨物。"
+            },
+            {
+              word: "discrepancy", pos: "n.", phonetic: "/dɪˈskrep.ən.si/", meaningZh: "差異、不符之處",
+              definition: "An illogical lack of compatibility between two facts or figures.",
+              collocations: ["inventory discrepancy", "unexplained discrepancy", "discrepancy in records"],
+              sentence: "The auditor flagged a discrepancy between reported revenues and deposit statements.",
+              sentenceZh: "查帳人員標記了申報營業額與銀行入帳紀錄之間的不符之處。"
+            },
+            {
+              word: "expedite", pos: "v.", phonetic: "/ˈek.spə.daɪt/", meaningZh: "加速、加快進程",
+              definition: "Make an action or process happen sooner or be accomplished quickly.",
+              collocations: ["expedite delivery", "expedite the process", "expedite approval"],
+              sentence: "We paid an extra fee to expedite customs clearance for the shipment.",
+              sentenceZh: "我們支付了額外手續費以加快貨物的清關速度。"
+            },
+            {
+              word: "consignment", pos: "n.", phonetic: "/kənˈsaɪn.mənt/", meaningZh: "託運貨物、寄售",
+              definition: "A batch of goods delivered or sent to a recipient.",
+              collocations: ["consignment of goods", "receive a consignment", "goods on consignment"],
+              sentence: "The first consignment of microchips arrived safely at the port yesterday.",
+              sentenceZh: "第一批微晶片貨物昨天已安全抵達港口。"
+            },
+            {
+              word: "liable", pos: "adj.", phonetic: "/ˈlaɪ.ə.bəl/", meaningZh: "負法律賠償責任的",
+              definition: "Legally responsible for something by statute or agreement.",
+              collocations: ["held liable for", "personally liable", "strictly liable"],
+              sentence: "The carrier was held liable for merchandise damaged during transit.",
+              sentenceZh: "運送業者被判需對運輸途中毀損的商品負賠償責任。"
+            },
+            {
+              word: "surplus", pos: "n. / adj.", phonetic: "/ˈsɜː.pləs/", meaningZh: "過剩、盈餘",
+              definition: "An excess amount of something left over after requirements are met.",
+              collocations: ["budget surplus", "surplus inventory", "surplus production"],
+              sentence: "The factory heavily discounted its surplus inventory to clear warehouse space.",
+              sentenceZh: "該工廠大幅出清過剩庫存，以騰出倉儲空間。"
+            },
+            {
+              word: "procurement", pos: "n.", phonetic: "/prəˈkjʊr.mənt/", meaningZh: "採購、取得",
+              definition: "The action of obtaining equipment, services, or raw supplies.",
+              collocations: ["procurement department", "government procurement", "procurement officer"],
+              sentence: "The procurement department reviewed several bids before selecting a vendor.",
+              sentenceZh: "採購部門在選定合作廠商前審查了數筆報價。"
+            }
+          ],
+          reading: {
+            docType: "Business Negotiation Email",
+            subject: "Urgent: Revised Vendor Contract Terms - Apex Solutions",
+            from: "Marcus Vance, Director of Operations (m.vance@apexsol.com)",
+            to: "Elena Rostova, Senior Partner, Horizon Logistics",
+            date: "October 14, 2026",
+            paragraphs: [
+              "Dear Ms. Rostova,",
+              "Following our quarterly review, <span class='highlight-clue' id='clue-1'>we cannot accept the proposed 12% surcharge on freight shipping for Q4</span> without additional operational justification.",
+              "Our budget is finalized, and any rate hike exceeding 5% would require executive committee re-approval, which could delay renewal past November 1.",
+              "We propose an alternative: <span class='highlight-clue' id='clue-2'>we are willing to extend our contract by an extra 18 months in exchange for capping the shipping increase at 4.5%</span> alongside guaranteed priority dispatch.",
+              "Sincerely,<br>Marcus Vance"
+            ],
+            questions: [
+              {
+                id: "r1",
+                question: "1. What is the primary purpose of Marcus Vance's email?",
+                clueTarget: "clue-1",
+                options: [
+                  "To terminate the shipping partnership immediately",
+                  "To reject a 12% rate increase and propose compromise terms",
+                  "To complain about damaged electronic equipment",
+                  "To announce a merger with Horizon Logistics"
+                ],
+                correctIndex: 1,
+                explanationZh: "Marcus 在第一段表明無法接受 12% 運費附加費，並提出延長 18 個月以換取 4.5% 上限的折衷方案。",
+                explanationEn: "Marcus rejects the 12% surcharge and proposes a compromise in exchange for a contract extension."
+              }
+            ]
+          },
+          listening: {
+            title: "Logistics Status Announcement",
+            topicTag: "TOEIC Part 4 • Conference Briefing",
+            spokenText: "Good morning team. Please note an update on our supply chain. Due to port congestion in Singapore, all international consignments are experiencing up to a four-day delay. Production managers should immediately verify existing inventory levels and expedite pre-assembly tasks. If you need overtime authorization, notify HR by 2:00 PM.",
+            dictationTarget: "consignments",
+            dictationPrompt: "Due to port congestion in Singapore, all international [_____] are experiencing delays.",
+            questions: [
+              {
+                id: "l1",
+                question: "1. What is causing the shipping delay?",
+                options: [
+                  "A rail transport strike in Europe",
+                  "Severe port congestion in Singapore",
+                  "Customs tariff negotiations",
+                  "A computer system outage"
+                ],
+                correctIndex: 1,
+                explanationZh: "廣播講者說：'Due to port congestion in Singapore, all international consignments are experiencing... delay'。",
+                explanationEn: "The speaker clarifies that delays are due to port congestion in Singapore."
+              }
+            ]
+          }
+        }
+      ],
+      'tier-850': [
+        {
+          id: 0,
+          dayNumber: 1,
+          topicZh: "企業併購與董事會策略決策 (M&A Strategy & Governance)",
+          topicEn: "Corporate Governance & M&A Strategic Restructuring",
+          badgeLabelZh: "850~990分 金證高階主管",
+          badgeLabelEn: "850~990 Executive Gold",
+          vocabularies: [
+            {
+              word: "acquisition", pos: "n.", phonetic: "/ˌæk.wəˈzɪʃ.ən/", meaningZh: "併購、收購；取得資產",
+              definition: "An asset or object bought, typically one company purchasing another firm.",
+              collocations: ["mergers and acquisitions (M&A)", "strategic acquisition", "acquisition target"],
+              sentence: "The telecommunications giant completed the acquisition of its rival for $4.2 billion.",
+              sentenceZh: "這家電信巨頭以 42 億美元完成了對其競爭對手的併購案。"
+            },
+            {
+              word: "synergy", pos: "n.", phonetic: "/ˈsɪn.ɚ.dʒi/", meaningZh: "綜效、協同增效效益",
+              definition: "The cooperation of entities to produce a combined effect greater than the sum of separate parts.",
+              collocations: ["create synergies", "operational synergy", "synergy between divisions"],
+              sentence: "The joint venture aims to leverage synergies in research and supply distribution.",
+              sentenceZh: "該合資企業旨在研發與供應分銷層面上發揮協同綜效。"
+            },
+            {
+              word: "consolidate", pos: "v.", phonetic: "/kənˈsɑː.lə.deɪt/", meaningZh: "整合、鞏固（財務或業務）",
+              definition: "Combine a number of business units or debt into a single coherent system.",
+              collocations: ["consolidate operations", "consolidate debt", "consolidated financial statement"],
+              sentence: "To reduce overhead, the corporation decided to consolidate its three European subsidiaries.",
+              sentenceZh: "為降低營運開銷，該集團決定整合其位於歐洲的三家子公司。"
+            },
+            {
+              word: "scrutiny", pos: "n.", phonetic: "/ˈskruː.tən.i/", meaningZh: "嚴密審查、仔細監視",
+              definition: "Critical observation or intense examination.",
+              collocations: ["under close scrutiny", "regulatory scrutiny", "withstand scrutiny"],
+              sentence: "The proposed merger has come under intense regulatory scrutiny by antitrust authorities.",
+              sentenceZh: "這項擬議中的併購案面臨反壟斷監管機關極為嚴密的審查。"
+            },
+            {
+              word: "insolvent", pos: "adj.", phonetic: "/ɪnˈsɑːl.vənt/", meaningZh: "無力償還的、破產的",
+              definition: "Unable to pay debts owed in the normal course of business.",
+              collocations: ["declared insolvent", "technically insolvent", "insolvent company"],
+              sentence: "If the company fails to secure emergency capital, it risks becoming insolvent by Q3.",
+              sentenceZh: "若該公司無法獲得緊急融資，恐將在第三季陷入無力償債的破產困境。"
+            },
+            {
+              word: "restructuring", pos: "n.", phonetic: "/riːˈstrʌk.tʃɚ.ɪŋ/", meaningZh: "企業改組、結構重組",
+              definition: "The act of reorganizing an enterprise to operate more effectively.",
+              collocations: ["corporate restructuring", "financial restructuring", "debt restructuring"],
+              sentence: "The comprehensive restructuring plan will eliminate redundant administrative positions.",
+              sentenceZh: "這項全面性的組織重組計畫將裁撤多餘重複的行政職位。"
+            },
+            {
+              word: "divest", pos: "v.", phonetic: "/daɪˈvest/", meaningZh: "剝離資產、處分投資",
+              definition: "Rid oneself of business assets or subsidiaries, typically by sale.",
+              collocations: ["divest assets", "divest non-core business", "divestment strategy"],
+              sentence: "The conglomerate plans to divest its retail division to concentrate on semiconductors.",
+              sentenceZh: "該企業集團計畫剝離其零售事業體，將資源集中於半導體領域。"
+            },
+            {
+              word: "fiduciary", pos: "adj. / n.", phonetic: "/fɪˈduː.ʃi.er.i/", meaningZh: "信託的、受託人誠信責任",
+              definition: "Involving legal trust between a trustee and beneficiary or shareholders.",
+              collocations: ["fiduciary duty", "fiduciary responsibility", "breach of fiduciary duty"],
+              sentence: "Board directors have a strict fiduciary duty to act in the best interest of shareholders.",
+              sentenceZh: "董事會成員負有嚴格的信託誠信義務，必須以股東的最大利益行事。"
+            },
+            {
+              word: "leverage", pos: "v. / n.", phonetic: "/ˈlev.ɚ.ɪdʒ/", meaningZh: "善用槓桿；發揮優勢",
+              definition: "Use something to maximum strategic advantage.",
+              collocations: ["leverage assets", "high financial leverage", "leverage market position"],
+              sentence: "The startup managed to leverage strategic partnerships to scale globally in two years.",
+              sentenceZh: "這家新創公司善用策略夥伴關係，在兩年內成功實現全球化擴張。"
+            },
+            {
+              word: "stipulation", pos: "n.", phonetic: "/ˌstɪp.jəˈleɪ.ʃən/", meaningZh: "契約明文約定、規定條件",
+              definition: "A required condition specified as part of a formal agreement.",
+              collocations: ["contractual stipulation", "strict stipulation", "subject to the stipulation"],
+              sentence: "A primary stipulation in the contract specifies that all proprietary data remains confidential.",
+              sentenceZh: "合約中的一項核心規定條件指明所有專有資料必須嚴格保密。"
+            },
+            {
+              word: "recapitalization", pos: "n.", phonetic: "/ˌriːˌkæp.ə.t̬əl.əˈzeɪ.ʃən/", meaningZh: "資本結構重組",
+              definition: "A corporate reorganization significantly shifting debt-to-equity ratios.",
+              collocations: ["equity recapitalization", "leveraged recapitalization", "plan a recapitalization"],
+              sentence: "The board approved a recapitalization plan to lower interest liabilities.",
+              sentenceZh: "董事會通過了一項資本結構重整方案以減輕利息負債負擔。"
+            },
+            {
+              word: "indemnity", pos: "n.", phonetic: "/ɪnˈdem.nə.t̬i/", meaningZh: "免責保證、損害賠償保障",
+              definition: "Security or protection against legal liability or financial loss.",
+              collocations: ["clause of indemnity", "indemnity insurance", "seek indemnity"],
+              sentence: "The vendor agreement included an indemnity clause protecting our firm against third-party lawsuits.",
+              sentenceZh: "廠商合約中載有免責賠償條款，以保護本公司免受第三方訴訟牽連。"
+            }
+          ],
+          reading: {
+            docType: "Executive Board Memorandum",
+            subject: "Confidential: Proposed Merger with Helios Corp and Antitrust Assessment",
+            from: "Office of the General Counsel & M&A Strategy Team",
+            to: "Board of Directors",
+            date: "October 16, 2026",
+            paragraphs: [
+              "Board Members,",
+              "Following preliminary negotiations with Helios Corp, <span class='highlight-clue' id='clue-1'>we recommend proceeding with a stock-for-stock acquisition structure valued at $1.8 billion</span>.",
+              "Our external antitrust counsel anticipates that federal trade regulators will require <span class='highlight-clue' id='clue-2'>the divestment of our regional cloud storage division as a mandatory condition for merger approval</span>.",
+              "Preserving shareholder value remains our foremost fiduciary duty. We estimate operational synergies will yield $140 million in annualized cost savings by Year 2.",
+              "Respectfully submitted,<br>Corporate Legal & M&A Committee"
+            ],
+            questions: [
+              {
+                id: "r1",
+                question: "1. What deal structure is recommended for the acquisition of Helios Corp?",
+                clueTarget: "clue-1",
+                options: [
+                  "An all-cash buyout of 500 million dollars",
+                  "A stock-for-stock acquisition valued at 1.8 billion dollars",
+                  "A liquidation of assets through bankruptcy court",
+                  "A joint partnership without corporate transfer"
+                ],
+                correctIndex: 1,
+                explanationZh: "備忘錄第一段指出：'recommend proceeding with a stock-for-stock acquisition structure valued at $1.8 billion'。",
+                explanationEn: "Paragraph 1 recommends proceeding with a stock-for-stock acquisition valued at $1.8 billion."
+              },
+              {
+                id: "r2",
+                question: "2. What concession will regulators likely mandate before approving the merger?",
+                clueTarget: "clue-2",
+                options: [
+                  "Divestment of the regional cloud storage division",
+                  "A complete halt of international operations",
+                  "Replacing the entire board of directors",
+                  "Doubling subscriber prices for the next three years"
+                ],
+                correctIndex: 0,
+                explanationZh: "外部反壟斷律師預料監管機構會強制要求剝離區域雲端儲存事業體（divestment of our regional cloud division）。",
+                explanationEn: "Counsel anticipates regulators requiring the divestment of the regional cloud division."
+              }
+            ]
+          },
+          listening: {
+            title: "Board Meeting Excerpt: Fiscal Q3 Review",
+            topicTag: "TOEIC Part 4 • Corporate Board Presentation",
+            spokenText: "Good afternoon, fellow directors. As you review page four of the financial summary, notice how our debt restructuring significantly reduced interest liabilities. However, to withstand upcoming regulatory scrutiny regarding our proposed acquisition, we must continue to consolidate our secondary branch operations. I now invite our Chief Financial Officer to present the detailed fiduciary forecast.",
+            dictationTarget: "scrutiny",
+            dictationPrompt: "To withstand upcoming regulatory [_____] regarding our proposed acquisition, we must consolidate operations.",
+            questions: [
+              {
+                id: "l1",
+                question: "1. What is the speaker asking directors to review?",
+                options: [
+                  "The annual holiday schedule",
+                  "Page four of the financial summary regarding debt restructuring",
+                  "Customer feedback complaints",
+                  "The architectural blueprint for a new headquarters"
+                ],
+                correctIndex: 1,
+                explanationZh: "發言者表示：'As you review page four of the financial summary, notice how our debt restructuring significantly reduced interest liabilities'。",
+                explanationEn: "The speaker directs board members to page 4 of the summary regarding debt restructuring."
+              }
+            ]
+          }
+        }
+      ]
+    };
+
+    // State Variables
+    let currentLang = 'zh';
+    let isDarkTheme = true;
+    let currentTier = 'tier-500';
+    let currentDayIdx = 0;
+    let currentModule = 0;
+    let currentVocabIdx = 0;
+    let timerSeconds = 30 * 60;
+    let timerInterval = null;
+    let isTimerRunning = true;
+    let selectedAccent = 'US';
+    let playbackSpeed = 1.0;
+    let showHighlights = false;
+
+    let readingAnswers = {};
+    let listeningAnswers = {};
+    let isDictationPassed = false;
+    const synth = window.speechSynthesis;
+
+    // Study Tracking & LocalStorage Keys
+    const STORAGE_KEY_STUDY_LOGS = 'toeic30_study_logs_v1';
+    let studyLogs = []; // Array of { date: 'YYYY-MM-DD', minutes: 30, readingPct: 100, listeningPct: 100, tier: 'tier-500' }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Load Study Logs from localStorage
+      loadStudyLogs();
+
+      // 2. Load Theme
+      const savedTheme = localStorage.getItem('toeic_theme');
+      if (savedTheme === 'light') {
+        setTheme(false);
+      } else {
+        setTheme(true);
+      }
+
+      // 3. Load Language
+      const savedLang = localStorage.getItem('toeic_lang');
+      if (savedLang === 'en' || savedLang === 'zh') {
+        currentLang = savedLang;
+      }
+      applyLanguageUI();
+
+      // 4. Load API Key
+      const savedKey = localStorage.getItem('user_gemini_api_key');
+      if (savedKey) {
+        document.getElementById('user-gemini-key').value = savedKey;
+        document.getElementById('api-key-status').innerText = '✓ Gemini API Key stored in browser.';
+        document.getElementById('api-key-status').className = 'text-[11px] text-emerald-400 font-semibold';
+      }
+
+      initTimer();
+      renderCurriculum(currentDayIdx);
+      renderHeatmapGrid();
+      updateStreakBadge();
+    });
+
+    // --- Study Tracking & Punch-In System ---
+    function getTodayDateString() {
+      const today = new Date();
+      const y = today.getFullYear();
+      const m = String(today.getMonth() + 1).padStart(2, '0');
+      const d = String(today.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function loadStudyLogs() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_STUDY_LOGS);
+        if (raw) {
+          studyLogs = JSON.parse(raw);
+        } else {
+          // Initialize mock past 2-day record if first time so user sees the heatmap in action
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yDateStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+          studyLogs = [
+            { date: yDateStr, minutes: 30, readingPct: 100, listeningPct: 100, tier: 'tier-500' }
+          ];
+          saveStudyLogs();
+        }
+      } catch (e) {
+        studyLogs = [];
+      }
+    }
+
+    function saveStudyLogs() {
+      localStorage.setItem(STORAGE_KEY_STUDY_LOGS, JSON.stringify(studyLogs));
+      updateStreakBadge();
+    }
+
+    function recordTodayCompletion(readingPct, listeningPct) {
+      const todayStr = getTodayDateString();
+      const existingIdx = studyLogs.findIndex(log => log.date === todayStr);
+      const minutesSpent = Math.max(1, Math.round((1800 - timerSeconds) / 60)) || 30;
+
+      const newLog = {
+        date: todayStr,
+        minutes: minutesSpent,
+        readingPct: readingPct,
+        listeningPct: listeningPct,
+        tier: currentTier,
+        completedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      if (existingIdx >= 0) {
+        studyLogs[existingIdx] = newLog;
+      } else {
+        studyLogs.push(newLog);
+      }
+      saveStudyLogs();
+      renderHeatmapGrid();
+    }
+
+    function calculateStreak() {
+      if (!studyLogs || studyLogs.length === 0) return 0;
+      
+      const logDates = new Set(studyLogs.map(l => l.date));
+      let streak = 0;
+      let checkDate = new Date();
+
+      // If today is not logged yet, start checking from yesterday to see if active streak exists
+      const todayStr = getTodayDateString();
+      if (!logDates.has(todayStr)) {
+        checkDate.setDate(checkDate.getDate() - 1);
+      }
+
+      while (true) {
+        const y = checkDate.getFullYear();
+        const m = String(checkDate.getMonth() + 1).padStart(2, '0');
+        const d = String(checkDate.getDate()).padStart(2, '0');
+        const dStr = `${y}-${m}-${d}`;
+
+        if (logDates.has(dStr)) {
+          streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      return streak;
+    }
+
+    function updateStreakBadge() {
+      const streak = calculateStreak();
+      const badgeText = currentLang === 'en' ? `${streak} Day Streak` : `${streak} 天打卡`;
+      const headerBadge = document.getElementById('header-streak-badge');
+      if (headerBadge) headerBadge.innerText = badgeText;
+
+      const reportStreak = document.getElementById('report-streak-days');
+      if (reportStreak) reportStreak.innerText = currentLang === 'en' ? `${streak} Days!` : `${streak} 天達成!`;
+    }
+
+    function renderHeatmapGrid() {
+      const grid = document.getElementById('heatmap-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const logMap = {};
+      studyLogs.forEach(l => { logMap[l.date] = l; });
+
+      // Build 30 calendar days leading up to today
+      const cells = [];
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const dateStr = `${y}-${m}-${day}`;
+        const hasLog = logMap[dateStr];
+
+        cells.push({
+          dateStr,
+          hasLog,
+          label: `${m}/${day}`
+        });
+      }
+
+      cells.forEach(c => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `w-7 h-9 sm:w-8 sm:h-10 rounded-lg flex flex-col items-center justify-center text-[9px] font-mono transition-transform hover:scale-110 active:scale-95 border ${
+          c.hasLog 
+            ? 'bg-emerald-600/90 border-emerald-400 text-white font-bold shadow-sm shadow-emerald-500/20' 
+            : 'bg-dark-card light:bg-slate-200 border-dark-border light:border-slate-300 text-slate-500'
+        }`;
+        btn.innerHTML = `
+          <span>${c.hasLog ? '✓' : '·'}</span>
+          <span class="text-[8px] opacity-75">${c.label}</span>
+        `;
+        btn.onclick = () => {
+          const detail = document.getElementById('heatmap-cell-detail');
+          if (c.hasLog) {
+            detail.innerText = `📅 ${c.dateStr}：已完成學習 ${c.hasLog.minutes} 分鐘 | 閱讀答對率 ${c.hasLog.readingPct}% | 聽力答對率 ${c.hasLog.listeningPct}%`;
+          } else {
+            detail.innerText = `📅 ${c.dateStr}：當日未打卡`;
+          }
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    function openStatsModal() {
+      const modal = document.getElementById('stats-modal');
+      modal.classList.remove('hidden');
+
+      const totalDays = studyLogs.length;
+      const currentStreak = calculateStreak();
+      const totalMins = studyLogs.reduce((acc, cur) => acc + (cur.minutes || 0), 0);
+
+      document.getElementById('stat-total-days').innerText = `${totalDays} ${currentLang === 'en' ? 'Days' : '天'}`;
+      document.getElementById('stat-current-streak').innerText = `${currentStreak} ${currentLang === 'en' ? 'Days' : '天'}`;
+      document.getElementById('stat-total-mins').innerText = `${totalMins} ${currentLang === 'en' ? 'mins' : '分鐘'}`;
+
+      const listContainer = document.getElementById('stats-log-list');
+      if (studyLogs.length === 0) {
+        listContainer.innerHTML = `<div class="text-xs text-slate-400 p-3 text-center">尚無打卡紀錄，立即完成今日衝刺吧！</div>`;
+      } else {
+        const sorted = [...studyLogs].reverse().slice(0, 15);
+        listContainer.innerHTML = sorted.map(log => `
+          <div class="p-2.5 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="font-bold text-white light:text-slate-900">${log.date}</span>
+              <span class="text-slate-400 text-[10px]">(${log.tier || '500~650'})</span>
+            </div>
+            <div class="flex items-center gap-2 font-mono">
+              <span class="text-indigo-400">${log.minutes} min</span>
+              <span class="text-emerald-400 font-bold">R:${log.readingPct}% L:${log.listeningPct}%</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function closeStatsModal() {
+      document.getElementById('stats-modal').classList.add('hidden');
+    }
+
+    function clearStudyHistory() {
+      if (window.confirm("確定要清空本機的所有學習與打卡紀錄嗎？")) {
+        studyLogs = [];
+        saveStudyLogs();
+        renderHeatmapGrid();
+        openStatsModal();
+        showToast("已重置學習紀錄");
+      }
+    }
+
+    // --- Mobile Reading Tab Switcher ---
+    function toggleMobileReadingTab(tab) {
+      const colDoc = document.getElementById('col-reading-doc');
+      const colQ = document.getElementById('col-reading-questions');
+      const btnPassage = document.getElementById('m-tab-passage');
+      const btnQ = document.getElementById('m-tab-questions');
+
+      if (tab === 'passage') {
+        colDoc.classList.remove('hidden');
+        colQ.classList.add('hidden');
+        btnPassage.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition";
+        btnQ.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 light:text-slate-700 transition";
+      } else {
+        colDoc.classList.add('hidden');
+        colQ.classList.remove('hidden');
+        btnQ.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-indigo-600 text-white transition";
+        btnPassage.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 light:text-slate-700 transition";
+      }
+    }
+
+    // --- Theme & Language Management ---
+    function toggleTheme() {
+      setTheme(!isDarkTheme);
+    }
+
+    function setTheme(dark) {
+      isDarkTheme = dark;
+      const htmlEl = document.documentElement;
+      const body = document.body;
+      const moon = document.getElementById('theme-icon-moon');
+      const sun = document.getElementById('theme-icon-sun');
+
+      if (dark) {
+        htmlEl.classList.add('dark');
+        htmlEl.classList.remove('light');
+        body.className = "bg-dark-bg text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 pb-20 md:pb-6";
+        moon.classList.remove('hidden');
+        sun.classList.add('hidden');
+        localStorage.setItem('toeic_theme', 'dark');
+      } else {
+        htmlEl.classList.remove('dark');
+        htmlEl.classList.add('light');
+        body.className = "bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 pb-20 md:pb-6";
+        moon.classList.add('hidden');
+        sun.classList.remove('hidden');
+        localStorage.setItem('toeic_theme', 'light');
+      }
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('toeic_lang', lang);
+      applyLanguageUI();
+      renderCurriculum(currentDayIdx);
+      updateStreakBadge();
+    }
+
+    function applyLanguageUI() {
+      const strings = i18n[currentLang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (strings[key]) {
+          if (key === 'modalOpt2List') {
+            el.innerHTML = strings[key];
+          } else {
+            el.innerText = strings[key];
+          }
+        }
+      });
+
+      const btnEn = document.getElementById('lang-btn-en');
+      const btnZh = document.getElementById('lang-btn-zh');
+      if (currentLang === 'en') {
+        btnEn.className = "px-2 py-1 rounded-lg bg-indigo-600 text-white shadow-sm font-bold text-[11px] sm:text-xs";
+        btnZh.className = "px-2 py-1 rounded-lg text-slate-400 light:text-slate-600 font-medium text-[11px] sm:text-xs";
+      } else {
+        btnEn.className = "px-2 py-1 rounded-lg text-slate-400 light:text-slate-600 font-medium text-[11px] sm:text-xs";
+        btnZh.className = "px-2 py-1 rounded-lg bg-indigo-600 text-white shadow-sm font-bold text-[11px] sm:text-xs";
+      }
+    }
+
+    // --- Timer Handling ---
+    function initTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (isTimerRunning && timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        }
+      }, 1000);
+      updateTimerDisplay();
+    }
+
+    function toggleTimer() {
+      isTimerRunning = !isTimerRunning;
+      const pauseIcon = document.getElementById('timer-icon-pause');
+      if (isTimerRunning) {
+        pauseIcon.innerHTML = `<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />`;
+      } else {
+        pauseIcon.innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />`;
+      }
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      const timerEl = document.getElementById('session-timer');
+      if (timerEl) {
+        timerEl.innerText = formatted;
+        if (timerSeconds < 300) {
+          timerEl.className = 'font-mono text-xs sm:text-sm font-bold tracking-wider text-rose-400';
+        }
+      }
+    }
+
+    function setTargetTier(tierKey) {
+      currentTier = tierKey;
+      currentDayIdx = 0;
+
+      ['tier-500', 'tier-700', 'tier-850'].forEach(t => {
+        const btnId = t === 'tier-500' ? 'target-500' : (t === 'tier-700' ? 'target-700' : 'target-850');
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          if (t === tierKey) {
+            btn.className = "px-3 py-1.5 min-h-[38px] rounded-xl bg-indigo-600 text-white shadow-sm font-bold text-xs shrink-0 transition";
+          } else {
+            btn.className = "px-3 py-1.5 min-h-[38px] rounded-xl text-slate-400 light:text-slate-600 hover:text-white font-medium text-xs shrink-0 transition";
+          }
+        }
+      });
+
+      renderCurriculum(0);
+      goToModule(0);
+    }
+
+    function switchLessonDay(idx) {
+      const lessons = tierData[currentTier];
+      if (idx < lessons.length) {
+        currentDayIdx = idx;
+        renderCurriculum(idx);
+        goToModule(0);
+      }
+    }
+
+    function renderCurriculum(index) {
+      const lessons = tierData[currentTier];
+      const data = lessons[index] || lessons[0];
+
+      currentVocabIdx = 0;
+      readingAnswers = {};
+      listeningAnswers = {};
+      isDictationPassed = false;
+      showHighlights = false;
+
+      const badgeText = currentLang === 'en' ? data.badgeLabelEn : data.badgeLabelZh;
+      const topicText = currentLang === 'en' ? data.topicEn : data.topicZh;
+
+      document.getElementById('tier-badge-pill').innerText = badgeText;
+      document.getElementById('current-date-label').innerText = `Day ${data.dayNumber}`;
+      document.getElementById('topic-header-title').innerText = topicText;
+
+      [0, 1].forEach(i => {
+        const btn = document.getElementById(`day-btn-${i}`);
+        if (btn) {
+          if (i === index) {
+            btn.className = "day-btn px-2.5 py-1.5 min-h-[36px] rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm transition";
+          } else {
+            btn.className = "day-btn px-2.5 py-1.5 min-h-[36px] rounded-lg text-xs font-semibold bg-dark-surface light:bg-slate-100 text-slate-300 light:text-slate-600 hover:bg-slate-800 border border-dark-border light:border-slate-200 transition";
+          }
+        }
+      });
+
+      renderVocabSidebar(data.vocabularies);
+      renderVocabCard(data.vocabularies[0]);
+      document.getElementById('report-vocab-count').innerText = `${data.vocabularies.length} Words`;
+
+      renderReadingSection(data.reading);
+      renderListeningSection(data.listening);
+
+      const feedback = document.getElementById('dictation-feedback');
+      if (feedback) {
+        feedback.className = "text-xs font-semibold hidden p-2.5 rounded-lg";
+        feedback.innerText = "";
+      }
+      const dictInput = document.getElementById('dictation-input');
+      if (dictInput) dictInput.value = "";
+
+      // Ensure mobile reading resets to passage
+      toggleMobileReadingTab('passage');
+    }
+
+    function renderVocabSidebar(vocabList) {
+      const container = document.getElementById('vocab-nav-list');
+      container.innerHTML = vocabList.map((v, i) => {
+        const isSelected = i === currentVocabIdx;
+        const gloss = currentLang === 'en' ? v.definition.slice(0, 24) + '...' : v.meaningZh;
+        return `
+          <button onclick="selectVocabWord(${i})" id="vocab-side-${i}" class="min-h-[44px] px-3 py-2 rounded-xl transition flex lg:flex-row items-center justify-between border whitespace-nowrap lg:whitespace-normal shrink-0 ${isSelected ? 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300 font-bold' : 'bg-dark-surface light:bg-slate-50 border-transparent hover:bg-slate-800 light:hover:bg-slate-100 text-slate-300 light:text-slate-700'}">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full ${isSelected ? 'bg-indigo-400' : 'bg-slate-600'}"></span>
+              <span class="text-xs sm:text-sm font-semibold capitalize">${v.word}</span>
+            </div>
+            <span class="hidden lg:inline text-[11px] text-slate-400 truncate max-w-[120px]">${gloss}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectVocabWord(index) {
+      currentVocabIdx = index;
+      const vocabList = tierData[currentTier][currentDayIdx].vocabularies;
+      renderVocabSidebar(vocabList);
+      renderVocabCard(vocabList[index]);
+    }
+
+    function renderVocabCard(v) {
+      const vocabList = tierData[currentTier][currentDayIdx].vocabularies;
+      document.getElementById('vocab-progress-label').innerText = `Word ${currentVocabIdx + 1} of ${vocabList.length}`;
+
+      const cardBody = document.getElementById('vocab-card-body');
+      
+      let meaningSection = '';
+      if (currentLang === 'zh') {
+        meaningSection = `<p class="mt-1 text-sm sm:text-base font-bold text-indigo-400 light:text-indigo-900">${v.meaningZh}</p>`;
+      } else {
+        meaningSection = `
+          <div class="mt-1 flex items-center gap-2">
+            <span class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">Business Term</span>
+            <button onclick="revealWordZh(this, '${v.meaningZh}')" class="text-[11px] text-slate-400 hover:text-indigo-300 underline cursor-pointer p-1">
+              (${i18n.en.tapToRevealHint})
+            </button>
+          </div>
+        `;
+      }
+
+      let sentenceZhMarkup = '';
+      if (currentLang === 'zh') {
+        sentenceZhMarkup = `<p class="text-xs text-slate-400 light:text-slate-500 mt-1">${v.sentenceZh}</p>`;
+      }
+
+      cardBody.innerHTML = `
+        <div class="flex flex-row items-center justify-between gap-3 pb-4 border-b border-dark-border light:border-slate-100">
+          <div>
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900 capitalize">${v.word}</h3>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-800 light:bg-slate-100 text-slate-300 light:text-slate-700">${v.pos}</span>
+              <span class="font-mono text-xs sm:text-sm text-indigo-400 font-medium">${v.phonetic}</span>
+            </div>
+            ${meaningSection}
+          </div>
+
+          <button onclick="speakText('${v.word}')" class="flex items-center gap-1.5 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 font-bold text-xs transition border border-indigo-500/30 shrink-0 active:scale-95">
+            <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.776L4.858 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.858l3.525-3.776a1 1 0 011.000-.148zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.829 1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            <span class="hidden sm:inline">發音</span>
+          </button>
+        </div>
+
+        <div class="mt-4 space-y-4">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+              ${currentLang === 'zh' ? '英文詳解 (English Definition)' : 'Context Definition'}
+            </span>
+            <p class="text-xs sm:text-sm text-slate-300 light:text-slate-700 leading-relaxed">${v.definition}</p>
+          </div>
+
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400 block mb-1.5">
+              ${currentLang === 'zh' ? '多益必考搭配詞 (Collocations)' : 'High-Frequency Collocations'}
+            </span>
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
+              ${v.collocations.map(c => `
+                <span class="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-300">
+                  ⚡ ${c}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="p-3 sm:p-3.5 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+              ${currentLang === 'zh' ? '職場情境例句 (Corporate Sentence)' : 'Corporate Context Example'}
+            </span>
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs sm:text-sm font-semibold text-white light:text-slate-800 leading-relaxed">${v.sentence}</p>
+                ${sentenceZhMarkup}
+              </div>
+              <button onclick="speakText('${v.sentence.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-indigo-400 transition p-2 min-h-[36px] min-w-[36px]" title="Play Sentence">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function revealWordZh(btn, zhText) {
+      btn.innerText = `[${zhText}]`;
+      btn.className = "text-[11px] text-amber-400 font-bold";
+    }
+
+    function prevVocabWord() {
+      if (currentVocabIdx > 0) {
+        selectVocabWord(currentVocabIdx - 1);
+      }
+    }
+
+    function nextVocabWord() {
+      const vocabList = tierData[currentTier][currentDayIdx].vocabularies;
+      if (currentVocabIdx < vocabList.length - 1) {
+        selectVocabWord(currentVocabIdx + 1);
+      }
+    }
+
+    function renderReadingSection(reading) {
+      document.getElementById('reading-doc-type').innerText = reading.docType;
+      
+      const docContent = document.getElementById('reading-doc-content');
+      docContent.innerHTML = `
+        <div class="bg-dark-surface light:bg-slate-50 p-3 rounded-xl border border-dark-border light:border-slate-200 text-xs space-y-1 mb-3">
+          <div><strong class="text-white light:text-slate-800">Subject:</strong> ${reading.subject}</div>
+          <div><strong class="text-white light:text-slate-800">From:</strong> ${reading.from}</div>
+          <div><strong class="text-white light:text-slate-800">To:</strong> ${reading.to}</div>
+          <div><strong class="text-white light:text-slate-800">Date:</strong> ${reading.date}</div>
+        </div>
+        ${reading.paragraphs.map(p => `<p>${p}</p>`).join('')}
+      `;
+
+      const questionsContainer = document.getElementById('reading-questions-container');
+      questionsContainer.innerHTML = reading.questions.map((q) => {
+        const explanation = currentLang === 'en' ? q.explanationEn : q.explanationZh;
+        return `
+          <div class="bg-dark-card light:bg-white rounded-2xl border border-dark-border light:border-slate-200 p-4 sm:p-5 shadow-sm space-y-3" id="q-card-${q.id}">
+            <h4 class="text-xs sm:text-sm font-bold text-white light:text-slate-900 leading-snug">${q.question}</h4>
+            
+            <div class="space-y-2">
+              ${q.options.map((opt, optIndex) => `
+                <button onclick="handleSelectReadingOption('${q.id}', ${optIndex}, ${q.correctIndex})" 
+                        id="opt-btn-${q.id}-${optIndex}" 
+                        class="w-full text-left p-3 min-h-[44px] rounded-xl border border-dark-border light:border-slate-200 bg-dark-surface/50 light:bg-slate-50 text-xs sm:text-sm font-medium hover:bg-slate-800 light:hover:bg-slate-100 transition flex items-start gap-2.5 active:scale-95">
+                  <span class="w-5 h-5 rounded-full border border-dark-border light:border-slate-300 text-slate-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">${String.fromCharCode(65 + optIndex)}</span>
+                  <span class="flex-1 leading-snug">${opt}</span>
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="expl-${q.id}" class="hidden p-3 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 text-xs space-y-1">
+              <div class="font-bold text-indigo-400 light:text-indigo-900 flex items-center gap-1.5">
+                <span>${i18n[currentLang].clueExplTitle}</span>
+              </div>
+              <p class="text-slate-300 light:text-slate-600 leading-relaxed">${explanation}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleSelectReadingOption(questionId, selectedIdx, correctIdx) {
+      readingAnswers[questionId] = selectedIdx;
+      const question = tierData[currentTier][currentDayIdx].reading.questions.find(q => q.id === questionId);
+      
+      question.options.forEach((_, optIdx) => {
+        const btn = document.getElementById(`opt-btn-${questionId}-${optIdx}`);
+        btn.disabled = true;
+        if (optIdx === correctIdx) {
+          btn.className = "w-full text-left p-3 min-h-[44px] rounded-xl border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 light:text-emerald-900 text-xs sm:text-sm font-bold transition flex items-start gap-2.5";
+          btn.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5";
+        } else if (optIdx === selectedIdx && selectedIdx !== correctIdx) {
+          btn.className = "w-full text-left p-3 min-h-[44px] rounded-xl border border-rose-500/50 bg-rose-500/10 text-rose-300 light:text-rose-900 text-xs sm:text-sm font-semibold transition flex items-start gap-2.5";
+          btn.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5";
+        } else {
+          btn.className = "w-full text-left p-3 min-h-[44px] rounded-xl border border-dark-border light:border-slate-100 text-slate-500 text-xs sm:text-sm font-medium opacity-40 flex items-start gap-2.5";
+        }
+      });
+
+      const expl = document.getElementById(`expl-${questionId}`);
+      if (expl) expl.classList.remove('hidden');
+
+      if (question.clueTarget) {
+        const clueEl = document.getElementById(question.clueTarget);
+        if (clueEl) {
+          document.querySelectorAll('.highlight-clue').forEach(c => c.classList.remove('clue-active'));
+          clueEl.classList.add('clue-active');
+          clueEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    function toggleClueHighlights() {
+      showHighlights = !showHighlights;
+      const btn = document.getElementById('btn-toggle-clues');
+      const clues = document.querySelectorAll('.highlight-clue');
+      if (showHighlights) {
+        btn.classList.add('bg-amber-500/30');
+        clues.forEach(c => c.classList.add('clue-active'));
+      } else {
+        btn.classList.remove('bg-amber-500/30');
+        clues.forEach(c => c.classList.remove('clue-active'));
+      }
+    }
+
+    function renderListeningSection(listening) {
+      document.getElementById('listening-title').innerText = listening.title;
+      document.getElementById('listening-topic-tag').innerText = listening.topicTag;
+      document.getElementById('listening-transcript-text').innerText = listening.spokenText;
+      
+      const tipNote = currentLang === 'en' 
+        ? "<strong>Exam Strategy:</strong> Listen for transitional words (However, Unfortunately) and object nouns."
+        : "<strong>聽力技巧：</strong> 專注捕捉時態與轉折詞（However, Unfortunately）後方的重要訊息。";
+      document.getElementById('listening-key-notes').innerHTML = tipNote;
+      
+      document.getElementById('dictation-prompt-box').innerText = listening.dictationPrompt;
+
+      const container = document.getElementById('listening-questions-container');
+      container.innerHTML = listening.questions.map((q) => {
+        const explText = currentLang === 'en' ? q.explanationEn : q.explanationZh;
+        return `
+          <div class="p-3.5 sm:p-4 rounded-xl bg-dark-surface light:bg-slate-50 border border-dark-border light:border-slate-200 space-y-3" id="l-q-${q.id}">
+            <h5 class="text-xs sm:text-sm font-bold text-white light:text-slate-900 leading-snug">${q.question}</h5>
+            <div class="space-y-2">
+              ${q.options.map((opt, optIdx) => `
+                <button onclick="handleSelectListeningOption('${q.id}', ${optIdx}, ${q.correctIndex})" 
+                        id="opt-listen-${q.id}-${optIdx}" 
+                        class="w-full text-left p-2.5 min-h-[44px] rounded-lg border border-dark-border light:border-slate-200 bg-dark-card light:bg-white text-xs font-medium hover:bg-slate-800 light:hover:bg-slate-100 transition flex items-center gap-2 active:scale-95">
+                  <span class="w-4 h-4 rounded-full border border-dark-border light:border-slate-300 text-slate-400 flex items-center justify-center text-[10px] font-bold shrink-0">${String.fromCharCode(65 + optIdx)}</span>
+                  <span>${opt}</span>
+                </button>
+              `).join('')}
+            </div>
+            <div id="expl-listen-${q.id}" class="hidden text-xs text-slate-300 light:text-slate-600 bg-dark-bg light:bg-white p-2.5 rounded-lg border border-dark-border light:border-slate-200">
+              <strong>${i18n[currentLang].listenNotesLabel}</strong> ${explText}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleSelectListeningOption(qId, selectedIdx, correctIdx) {
+      listeningAnswers[qId] = selectedIdx;
+      const question = tierData[currentTier][currentDayIdx].listening.questions.find(q => q.id === qId);
+
+      question.options.forEach((_, optIdx) => {
+        const btn = document.getElementById(`opt-listen-${qId}-${optIdx}`);
+        btn.disabled = true;
+        if (optIdx === correctIdx) {
+          btn.className = "w-full text-left p-2.5 min-h-[44px] rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 light:text-emerald-900 text-xs font-bold transition flex items-center gap-2";
+          btn.querySelector('span').className = "w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0";
+        } else if (optIdx === selectedIdx) {
+          btn.className = "w-full text-left p-2.5 min-h-[44px] rounded-lg border border-rose-500/50 bg-rose-500/10 text-rose-300 light:text-rose-900 text-xs font-bold transition flex items-center gap-2";
+          btn.querySelector('span').className = "w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0";
+        } else {
+          btn.className = "w-full text-left p-2.5 min-h-[44px] rounded-lg border border-dark-border light:border-slate-100 text-slate-500 text-xs font-medium opacity-40 flex items-center gap-2";
+        }
+      });
+
+      const expl = document.getElementById(`expl-listen-${qId}`);
+      if (expl) expl.classList.remove('hidden');
+    }
+
+    function checkDictationAnswer() {
+      const input = document.getElementById('dictation-input').value.trim().toLowerCase();
+      const target = tierData[currentTier][currentDayIdx].listening.dictationTarget.toLowerCase();
+      const feedback = document.getElementById('dictation-feedback');
+      feedback.classList.remove('hidden');
+
+      if (input === target) {
+        isDictationPassed = true;
+        feedback.className = "text-xs font-semibold p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300";
+        feedback.innerHTML = `✓ ${currentLang === 'en' ? 'Excellent! Exact match for' : '太棒了！拼寫正確：'} <strong>"${target}"</strong>!`;
+      } else {
+        feedback.className = "text-xs font-semibold p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300";
+        const hintMsg = currentLang === 'en'
+          ? `✗ Entered "${input}". Hint: Starts with "${target.charAt(0)}" (${target.length} letters).`
+          : `✗ 你輸入的是 "${input}"。提示：首字母為 "${target.charAt(0)}"（共 ${target.length} 個字元）。`;
+        feedback.innerHTML = hintMsg;
+      }
+    }
+
+    function setListeningAccent(accent) {
+      selectedAccent = accent;
+      document.getElementById('accent-us').className = accent === 'US' ? 'px-2.5 py-1.5 min-h-[36px] rounded-lg bg-indigo-600 text-white shadow-sm font-bold' : 'px-2.5 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-bold hover:text-white';
+      document.getElementById('accent-uk').className = accent === 'UK' ? 'px-2.5 py-1.5 min-h-[36px] rounded-lg bg-indigo-600 text-white shadow-sm font-bold' : 'px-2.5 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-bold hover:text-white';
+    }
+
+    function setPlaybackSpeed(speed) {
+      playbackSpeed = speed;
+      [0.85, 1.0, 1.2].forEach(s => {
+        const id = s === 0.85 ? 'speed-085' : s === 1.0 ? 'speed-100' : 'speed-120';
+        const btn = document.getElementById(id);
+        if (s === speed) {
+          btn.className = "px-2 py-1.5 min-h-[36px] rounded-lg bg-indigo-600 text-white shadow-sm font-bold";
+        } else {
+          btn.className = "px-2 py-1.5 min-h-[36px] rounded-lg text-slate-400 light:text-slate-600 font-semibold";
+        }
+      });
+    }
+
+    function playListeningAudio() {
+      if (!synth) {
+        showToast("Browser does not support SpeechSynthesis.");
+        return;
+      }
+
+      synth.cancel();
+      const text = tierData[currentTier][currentDayIdx].listening.spokenText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = playbackSpeed;
+
+      const voices = synth.getVoices();
+      if (selectedAccent === 'UK') {
+        const ukVoice = voices.find(v => v.lang.includes('en-GB') || v.name.includes('UK') || v.name.includes('British'));
+        if (ukVoice) utterance.voice = ukVoice;
+      } else {
+        const usVoice = voices.find(v => v.lang.includes('en-US') || v.name.includes('US') || v.name.includes('English United States'));
+        if (usVoice) utterance.voice = usVoice;
+      }
+
+      const btnText = document.getElementById('play-audio-text');
+      utterance.onstart = () => { btnText.innerText = currentLang === 'en' ? "Playing..." : "播放中..."; };
+      utterance.onend = () => { btnText.innerText = currentLang === 'en' ? "Play Audio" : "播放音檔"; };
+      utterance.onerror = () => { btnText.innerText = currentLang === 'en' ? "Play Audio" : "播放音檔"; };
+
+      synth.speak(utterance);
+    }
+
+    function speakText(text) {
+      if (!synth) return;
+      synth.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      synth.speak(utterance);
+    }
+
+    function toggleTranscript() {
+      document.getElementById('transcript-panel').classList.toggle('hidden');
+    }
+
+    function finishDailySprint() {
+      const readingQuestions = tierData[currentTier][currentDayIdx].reading.questions;
+      let rCorrect = 0;
+      readingQuestions.forEach(q => {
+        if (readingAnswers[q.id] === q.correctIndex) rCorrect++;
+      });
+      const readingPct = Math.round((rCorrect / readingQuestions.length) * 100);
+
+      const listeningQuestions = tierData[currentTier][currentDayIdx].listening.questions;
+      let lCorrect = 0;
+      listeningQuestions.forEach(q => {
+        if (listeningAnswers[q.id] === q.correctIndex) lCorrect++;
+      });
+      const listeningPct = Math.round((lCorrect / listeningQuestions.length) * 100);
+
+      document.getElementById('report-reading-score').innerText = `${readingPct}%`;
+      document.getElementById('report-listening-score').innerText = `${listeningPct}%`;
+
+      // Persist to LocalStorage punch-in tracker
+      recordTodayCompletion(readingPct, listeningPct);
+
+      goToModule(3);
+      showToast("🎉 今日衝刺完成！打卡紀錄已儲存。");
+    }
+
+    function triggerSimulateGenerate() {
+      const lessons = tierData[currentTier];
+      const nextIdx = (currentDayIdx + 1) % lessons.length;
+      switchLessonDay(nextIdx);
+      const title = currentLang === 'en' ? tierData[currentTier][nextIdx].topicEn : tierData[currentTier][nextIdx].topicZh;
+      showToast(`載入單元: ${title}`);
+    }
+
+    function goToModule(moduleIndex) {
+      currentModule = moduleIndex;
+      for (let i = 0; i < 4; i++) {
+        const view = document.getElementById(`module-container-${i}`);
+        const tab = document.getElementById(`tab-module-${i}`);
+        const dock = document.getElementById(`mobile-dock-${i}`);
+
+        if (i === moduleIndex) {
+          view.classList.remove('hidden');
+          view.classList.add('block');
+          
+          if (tab) {
+            tab.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg font-semibold transition border border-indigo-500 bg-indigo-600/20 text-indigo-300 whitespace-nowrap";
+            tab.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold";
+          }
+          if (dock) {
+            dock.className = "flex flex-col items-center justify-center py-1 text-indigo-400 font-bold transition";
+          }
+        } else {
+          view.classList.add('hidden');
+          view.classList.remove('block');
+          
+          if (tab) {
+            tab.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition text-slate-400 light:text-slate-600 hover:bg-dark-card light:hover:bg-slate-100 whitespace-nowrap";
+            tab.querySelector('span:first-child').className = "w-5 h-5 rounded-full bg-dark-card light:bg-slate-200 text-slate-400 light:text-slate-600 flex items-center justify-center text-xs font-bold";
+          }
+          if (dock) {
+            dock.className = "flex flex-col items-center justify-center py-1 text-slate-400 font-medium transition";
+          }
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Modal & Offline File Export
+    function openDeployModal() {
+      document.getElementById('deploy-modal').classList.remove('hidden');
+    }
+
+    function closeDeployModal() {
+      document.getElementById('deploy-modal').classList.add('hidden');
+    }
+
+    function downloadSelfHtml() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "toeic-30-daily.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast("已下載 toeic-30-daily.html，雙擊即可在離線狀態下運行！");
+    }
+
+    function saveApiKey() {
+      const key = document.getElementById('user-gemini-key').value.trim();
+      if (key) {
+        localStorage.setItem('user_gemini_api_key', key);
+        document.getElementById('api-key-status').innerText = '✓ Gemini API Key saved locally.';
+        document.getElementById('api-key-status').className = 'text-[11px] text-emerald-400 font-semibold';
+        showToast("金鑰已儲存於瀏覽器 LocalStorage");
+      } else {
+        localStorage.removeItem('user_gemini_api_key');
+        document.getElementById('api-key-status').innerText = '尚未設定（使用內建題庫）。';
+        document.getElementById('api-key-status').className = 'text-[11px] text-slate-400 italic';
+        showToast("已重置為內建題庫");
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = "fixed bottom-16 sm:bottom-5 right-4 z-50 bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-3 rounded-2xl shadow-2xl border border-indigo-500/40 transition transform duration-300 translate-y-2";
+      toast.innerText = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
